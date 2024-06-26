@@ -1,5 +1,5 @@
 
-# NumericalSet and Partition Package
+# Pocket -| Partition
 
 This package provides two main classes: `NumericalSet` and `Partition`. These classes are designed to handle operations related to numerical sets and partitions, commonly used in combinatorics and number theory.
 
