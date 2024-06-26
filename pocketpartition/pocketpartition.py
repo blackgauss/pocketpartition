@@ -48,6 +48,46 @@ class NumericalSet:
             apery_set.add(x)
 
         return apery_set
+    
+    def partition(self):
+            """
+            Creates a partition based on a specific walk profile using the gaps attribute.
+
+            The walk is defined as follows:
+            - Start at 0.
+            - If the current number is in gaps, move up (create a new row with the same length as the current row).
+            - If the current number is not in gaps, move right (add one box to the current row).
+            - Continue this process until reaching the maximum number in gaps.
+            - Collect the lengths of each row at the end of the walk.
+            
+            The resulting partition is returned as a list of integers in non-increasing order.
+
+            Returns:
+            list: A partition [a1, a2, ..., an] in non-increasing order, representing the profile of the walk.
+            """
+            if not self.gaps:
+                return []
+
+            # Sort the set gaps
+            gaps = sorted(self.gaps)
+
+            # Initialize the current row and the partition list
+            current_row_length = 0
+            partition = []
+
+            for i in range(gaps[-1] + 1):
+                if i in gaps:
+                    if current_row_length > 0:
+                        partition.append(current_row_length)
+                else:
+                    current_row_length += 1  # Move right means incrementing the row length
+
+            # Ensure the partition is in descending order
+            partition.sort(reverse=True)
+
+            return partition
+    
+    
 
 class Partition:
     def __init__(self, partition):
@@ -56,7 +96,19 @@ class Partition:
 
         Parameters:
         partition (list of int): A list representing the partition.
+
+        Raises:
+        ValueError: If the partition is not a list of positive integers in non-increasing order.
         """
+        if not isinstance(partition, list):
+            raise ValueError("Partition must be a list.")
+        
+        if not all(isinstance(x, int) and x > 0 for x in partition):
+            raise ValueError("All elements of the partition must be positive integers.")
+        
+        if not all(partition[i] >= partition[i+1] for i in range(len(partition) - 1)):
+            raise ValueError("Partition must be in non-increasing order.")
+        
         self.partition = partition
 
     def conjugate(self):
