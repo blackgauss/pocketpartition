@@ -8,7 +8,7 @@ class NumericalSet:
         """
         self.gaps = set(gaps)
         self.frobenius_number = max(self.gaps) if self.gaps else -1
-
+    
     def atom_monoid(self):
         """
         Compute the gaps of the atom monoid.
@@ -80,6 +80,7 @@ class NumericalSemigroup(NumericalSet):
             super().__init__(gaps)
             if self.atom_monoid() != self.gaps:
                 raise ValueError("The provided gaps do not form a numerical semigroup because the atom monoid is not equal to the set itself.")
+        self.frobenius_number = max(self.gaps) if self.gaps else -1
 
     def _compute_gaps_from_generators(self, generators):
         """
@@ -93,8 +94,11 @@ class NumericalSemigroup(NumericalSet):
         """
         # Compute the elements of the semigroup up to twice the maximum generator
         semigroup = set()
-        max_gen = max(generators)
-        bound = 2 * max_gen
+        # max_gen = max(generators)
+        product_of_gens = 1
+        for gen in generators:
+            product_of_gens *= gen
+        bound = product_of_gens
         for i in range(bound):
             for g in generators:
                 if i - g in semigroup or i - g == 0:
@@ -191,6 +195,32 @@ class NumericalSemigroup(NumericalSet):
                 generators.append(i)
         
         return generators
+    
+    def void(self):
+        """
+        Compute the void of the numerical semigroup.
+
+        Returns:
+        set: The void of the numerical semigroup.
+        """
+        gaps = self.gaps
+        F = max(gaps)
+        void = [g for g in gaps if g in gaps and F-g in gaps]
+        return void
+    
+    def void_poset(self):
+        """
+        Compute the poset of the void of the numerical semigroup.
+        
+        Returns:
+        set of tuple: The poset of the void of the numerical semigroup.
+        """
+        void = self.void()
+        gaps = self.gaps
+        poset = [(y, x) for x in void for y in void if x < y and (y - x) not in gaps]
+        return poset
+
+
 
 class Partition:
     def __init__(self, partition):
@@ -267,12 +297,12 @@ class Partition:
         while current_row >= 0 and current_col < max_width:
             # Move right until we reach the end of the row
             while current_col < partition[current_row]:
-                moves.append("Right")
+                moves.append((1,0))
                 current_col += 1
             
             # Move up until we reach a row that has boxes in the current column
             while current_row >= 0 and (current_col >= partition[current_row]):
-                moves.append("Up")
+                moves.append((0,1))
                 current_row -= 1
         
         return moves
@@ -321,7 +351,78 @@ class Partition:
         i = 0
         gap_set = []
         for step in profile:
-            if step == "Up":
+            if step == (0,1):
                 gap_set.append(i)
             i += 1
         return gap_set
+    
+    def small_nongaps(self):
+        gaps = self.gaps()
+        frobenius_number = max(gaps)
+        nongaps = []
+        for s in range(frobenius_number):
+            if s not in gaps:
+                nongaps.append(s)
+        return nongaps
+
+    
+    def flip_nongap(self, s):
+        """
+        Flip a non-gap element in the partition.
+
+        Parameters:
+        s (int): The element to flip.
+
+        Returns:
+        list of int: The new partition after flipping the element.
+
+        Raises:
+        ValueError: If s is a gap in the partition or if s is a negative integer.
+        """
+        gaps = self.gaps()
+        if s in gaps:
+            raise ValueError(f"Cannot flip a gap. {s} is a gap in the partition.")
+        if s < 0:
+            raise ValueError("Input must be a nonnegative integer.")
+        new_gaps = gaps.copy()
+        new_gaps.append(s)
+        new_partition = NumericalSet(new_gaps).partition()
+        return new_partition
+    
+    def flip_end(self, i):
+        """
+        Flips the ith partition by making a right step and an up step.
+
+        Parameters:
+        i (int): The index of the partition to flip.
+
+        Returns:
+        list of int: The flipped partition.
+
+        Raises:
+        ValueError: If partition[i - 1] == partition[i] or partition[i - 1] == 1.
+        """
+        partition = self.partition
+        idx = i - 1
+        if i > len(partition):
+            raise ValueError(f"Partition only has {len(partition)} parts. Cannot flip part number {i}.")
+        if i < 1:
+            raise ValueError("Input must be a positive integer.")
+        if partition[idx] == partition[idx+1]:
+            raise ValueError("Invalid flip operation. There is not a part to flip.")
+        if partition[idx] == 1:
+            raise ValueError("Invalid flip operation. Cannot flip a part of size 1.")
+        flipped_partition = []
+        if i == 1:
+            flipped_partition.append(partition[0] - 1)
+            flipped_partition.extend(partition[1:])
+            return flipped_partition
+        else:
+            for j in range((idx - 1) + 1):
+                flipped_partition.append(partition[j] - 1)
+            flipped_partition.append(partition[idx] - 1)
+            flipped_partition.append(partition[idx] - 1)
+            for j in range(idx+1, len(partition)):
+                flipped_partition.append(partition[j])
+            flipped_partition.sort(reverse=True)
+            return flipped_partition
