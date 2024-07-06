@@ -8,6 +8,22 @@ class NumericalSet:
         """
         self.gaps = set(gaps)
         self.frobenius_number = max(self.gaps) if self.gaps else -1
+
+    def small_elements(self):
+        """
+        Compute the small elements of the numerical set.
+
+        Returns:
+        set of int: The small elements of the numerical set.
+        """
+        gaps = self.gaps
+        frobenius_number = max(gaps)
+        small_elements = []
+        for s in range(frobenius_number):
+            if s not in gaps:
+                small_elements.append(s)
+        return small_elements
+    
     
     def atom_monoid(self):
         """
