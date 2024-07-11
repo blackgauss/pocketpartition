@@ -1,3 +1,5 @@
+__all__ = ['Partition']  # Specify the items to be exported
+
 class Partition:
     def __init__(self, partition):
         """

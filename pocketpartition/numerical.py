@@ -1,3 +1,5 @@
+__all__ = ['NumericalSet', 'NumericalSemigroup']  # Specify the items to be exported
+
 class NumericalSet:
     def __init__(self, gaps):
         """
@@ -90,6 +92,7 @@ class NumericalSet:
             return 1
         nonzero = [element for element in small_elements if element !=0]
         return min(nonzero) if nonzero else self.frobenius_number + 1
+    
     
 class NumericalSemigroup(NumericalSet):
     def __init__(self, gaps=None, generators=None):
