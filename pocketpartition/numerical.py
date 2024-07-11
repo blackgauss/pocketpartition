@@ -1,4 +1,5 @@
 __all__ = ['NumericalSet', 'NumericalSemigroup']  # Specify the items to be exported
+from collections import Counter
 
 class NumericalSet:
     def __init__(self, gaps):
@@ -269,3 +270,46 @@ class NumericalSemigroup(NumericalSet):
         gaps = self.gaps
         poset = [(y, x) for x in void for y in void if x <= y and (y - x) not in gaps]
         return poset
+    
+    def effective_weight(self):
+            """
+            Calculates the effective weight of the numerical partition.
+
+            The effective weight is the sum of the number of boxes above each minimal generating set element.
+
+            Returns:
+                int: The effective weight of the numerical partition.
+            """
+            gaps = self.gaps
+            def boxes_above(s):
+                above = []
+                for gap in gaps:
+                    if gap > s:
+                        above.append(gap - s)
+                return len(above)
+            min_gens = self.minimal_generating_set()
+            ewt = 0
+            for gen in min_gens:
+                ewt += boxes_above(gen)
+            return ewt
+    
+    def pseudofrobenius_numbers(self):
+            """
+            Calculates the pseudofrobenius numbers
+            Returns:
+                A list of unique pseudofrobenius numbers.
+            """
+            hookset = []
+            small_elements = self.small_elements()
+            gaps = self.gaps
+            for s in small_elements:
+                for gap in gaps:
+                    if gap > s:
+                        hookset.append(gap - s)
+            element_counts = Counter(hookset)
+            unique_elements = [element for element, count in element_counts.items() if count == 1]
+            return unique_elements
+    
+    def type(self):
+        return len(self.pseudofrobenius_numbers())
+
