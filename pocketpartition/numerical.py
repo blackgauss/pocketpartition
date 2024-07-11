@@ -186,25 +186,22 @@ class NumericalSemigroup(NumericalSet):
             if g is not None:
                 aux.append(g)
 
+        aux.sort()
         gen = set(aux)
         
-        # Remove non-irreducible elements
-        def sumNS(A, B, max_value):
-            R = set()
-            for a in A:
-                for b in B:
-                    if a + b > max_value:
-                        break
-                    else:
-                        R.add(a + b)
-            return R
-
-        ss = sumNS(gen, gen, max(gen))
-        while ss:
-            gen -= ss
-            ss = sumNS(ss, gen, max(gen))
+        def remove_sum_of_two_elements(A):
+            to_remove = set()
+            for x in A:
+                for y in A:
+                    if (x + y) in A:
+                        to_remove.add(x+y)
+                        break  # No need to check further once x is found to be removable
+            A.difference_update(to_remove)
         
-        return list(gen)
+        remove_sum_of_two_elements(gen)
+        min_gens = list(gen)
+        min_gens.sort()
+        return min_gens
 
     def _compute_generators_from_gaps(self):
         """
@@ -221,13 +218,14 @@ class NumericalSemigroup(NumericalSet):
         for i in range(multiplicity + 1, frobenius_number):
             if i not in self.gaps and i % multiplicity not in equiv_classes:
                 generators.append(i)
+                equiv_classes.append(i % multiplicity)
         
         for i in range(frobenius_number + 1, frobenius_number + 1 + multiplicity):
             if i % multiplicity not in equiv_classes:
                 generators.append(i)
             if len(equiv_classes) == multiplicity:
                 break
-        
+
         return generators
     
     def void(self):
@@ -250,7 +248,7 @@ class NumericalSemigroup(NumericalSet):
         set of tuple: The poset of the gaps of the numerical semigroup.
         """
         gaps = self.gaps
-        poset = [(y, x) for x in gaps for y in gaps if x < y and (y - x) not in gaps]
+        poset = [(y, x) for x in gaps for y in gaps if x <= y and (y - x) not in gaps]
         return poset
     
     def void_poset(self):
@@ -262,5 +260,5 @@ class NumericalSemigroup(NumericalSet):
         """
         void = self.void()
         gaps = self.gaps
-        poset = [(y, x) for x in void for y in void if x < y and (y - x) not in gaps]
+        poset = [(y, x) for x in void for y in void if x <= y and (y - x) not in gaps]
         return poset
