@@ -131,6 +131,8 @@ class NumericalSemigroup(NumericalSet):
         Returns:
         int: The multiplicity of the numerical semigroup.
         """
+        if not self.gaps:
+            return 1
         small_elements = self.small_elements()
         nonzero = [element for element in small_elements if element !=0]
         return min(nonzero) if nonzero else self.frobenius_number + 1
