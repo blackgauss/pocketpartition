@@ -1,91 +1,93 @@
-
 # Pocket -| Partition
+# Pocket Partition Documentation
 
-This package provides two main classes: `NumericalSet` and `Partition`. These classes are designed to handle operations related to numerical sets and partitions, commonly used in combinatorics and number theory.
+Pocket Partition is a Python package designed for handling numerical sets and partitions. It provides classes and methods for operations related to mathematical partitions, including computing gaps, non-gaps, and working with numerical semigroups.
+
+## Repository Structure
+
+The repository is structured as follows:
+
+- `pocketpartition/`: Main package directory.
+  - `__pycache__/`: Compiled Python files.
+  - `example_usage.ipynb`: Jupyter notebook with examples of how to use the package.
+  - `numerical.py`: Module containing classes for numerical sets and semigroups.
+  - `partition.py`: Module providing the `Partition` class for partition operations.
+- `README.md`: The main documentation file for the repository.
+- `setup.py`: Script for installing the package.
+- `tests/`: Directory containing unit tests.
+  - `__pycache__/`: Compiled Python files for tests.
+  - `test_numerical_partition.py`: Unit tests for numerical set and partition functionalities.
+
+## Main Components
+
+### Numerical Module
+
+The `numerical.py` module includes classes for working with numerical sets and semigroups:
+
+- `NumericalSet`: Base class for numerical sets.
+- `NumericalSemigroup`: Inherits from `NumericalSet`, specialized for semigroup operations.
+
+### Partition Module
+
+The `partition.py` module provides the `Partition` class, which supports various operations on mathematical partitions, such as computing gaps and non-gaps within a numerical set.
+
+### Example Usage
+
+The `example_usage.ipynb` Jupyter notebook demonstrates how to use the package's functionalities, including creating partitions, computing hook lengths, and checking if a partition forms a semigroup.
 
 ## Installation
 
-To install the package, simply clone the repository and install it using pip:
+To install Pocket Partition, run the following command:
 
-```bash
-git clone https://github.com/yourusername/numericalset-partition.git
-cd numericalset-partition
-pip install .
-```
+```sh
+pip install git+https://github.com/blackgauss/pocketpartition.git
 
-## Usage
+# Numerical Module Documentation
 
-### NumericalSet Class
+The `numerical.py` module in the Pocket Partition package provides classes and functions for working with numerical sets and semigroups. It is designed to facilitate operations such as partitioning numerical sets, computing small elements, and handling numerical semigroups.
 
-The `NumericalSet` class is used to handle numerical sets and perform operations such as computing the atom monoid and the Apéry set.
+## Classes
 
-#### Initialization
+### NumericalSet
 
-```python
-from numericalset import NumericalSet
-
-gaps = [1, 2, 4]
-numerical_set = NumericalSet(gaps)
-```
+The `NumericalSet` class represents a set of numbers and provides methods for various operations on these sets.
 
 #### Methods
 
-- `atom_monoid()`: Computes the gaps of the atom monoid.
+- `partition(self)`: Returns a partition of the numerical set in descending order. This method sorts the elements of the set into a partition.
 
-    ```python
-    gaps_atom_monoid = numerical_set.atom_monoid()
-    ```
+- `small_elements(self)`: Computes the small elements of the numerical set. Small elements are those numbers that are not gaps in the set, up to the Frobenius number (the largest gap). Returns a list of these small elements.
 
-- `apery_set(n)`: Computes the Apéry set of the numerical set with respect to `n`.
+### NumericalSemigroup
 
-    ```python
-    apery_set = numerical_set.apery_set(3)
-    ```
+The `NumericalSemigroup` class is a subclass of `NumericalSet` and represents a numerical semigroup, which is a special kind of numerical set with additional properties and operations.
 
-### Partition Class
+Inherits all methods from `NumericalSet`.
 
-The `Partition` class is used to handle partitions and perform operations such as computing the conjugate partition, hook lengths, profile, and gaps.
+# Partition Module Documentation
 
-#### Initialization
+The `partition.py` module in the Pocket Partition package provides a `Partition` class designed for handling mathematical partitions, including operations like computing gaps and non-gaps within a numerical set.
 
-```python
-from partition import Partition
+## Classes
 
-partition = [4, 3, 1]
-partition_obj = Partition(partition)
-```
+### Partition
+
+The `Partition` class represents a mathematical partition and provides methods for operations related to numerical partitions.
 
 #### Methods
 
-- `conjugate()`: Computes the conjugate partition.
+- `small_nongaps(self)`: Computes the non-gap elements of a partition up to the Frobenius number (the largest gap). It returns a list of these non-gap elements. This method is useful for identifying elements that are not missing from the partition up to the largest missing element.
 
-    ```python
-    conjugate_partition = partition_obj.conjugate()
-    ```
+## Usage Example
 
-- `hook_lengths(i=None, j=None)`: Computes the hook length of a cell in the partition. If `i` and `j` are not provided, computes the hook lengths for all cells.
+Below is an example of how to use the `Partition` class to compute non-gap elements of a partition:
 
-    ```python
-    hook_lengths = partition_obj.hook_lengths()
-    single_hook_length = partition_obj.hook_lengths(i=1, j=2)
-    ```
+```python
+from pocketpartition.partition import Partition
 
-- `profile()`: Computes the profile of the partition as a series of moves ("Right" and "Up").
+# Assuming a partition object has been created
+partition = Partition(...)
 
-    ```python
-    profile = partition_obj.profile()
-    ```
-
-- `gaps()`: Computes the gaps in the profile of the partition.
-
-    ```python
-    gaps = partition_obj.gaps()
-    ```
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License.
+# Compute non-gap elements
+nongaps = partition.small_nongaps()
+print("Non-gap elements:", nongaps)
