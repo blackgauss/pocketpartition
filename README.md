@@ -39,8 +39,10 @@ The `example_usage.ipynb` Jupyter notebook demonstrates how to use the package's
 
 To install Pocket Partition, run the following command:
 
+
 ```sh
 pip install git+https://github.com/blackgauss/pocketpartition.git
+```
 
 # Numerical Module Documentation
 
