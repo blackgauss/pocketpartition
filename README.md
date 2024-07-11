@@ -8,7 +8,6 @@ Pocket Partition is a Python package designed for handling numerical sets and pa
 The repository is structured as follows:
 
 - `pocketpartition/`: Main package directory.
-  - `__pycache__/`: Compiled Python files.
   - `example_usage.ipynb`: Jupyter notebook with examples of how to use the package.
   - `numerical.py`: Module containing classes for numerical sets and semigroups.
   - `partition.py`: Module providing the `Partition` class for partition operations.
@@ -54,12 +53,6 @@ The `numerical.py` module in the Pocket Partition package provides classes and f
 
 The `NumericalSet` class represents a set of numbers and provides methods for various operations on these sets.
 
-#### Methods
-
-- `partition(self)`: Returns a partition of the numerical set in descending order. This method sorts the elements of the set into a partition.
-
-- `small_elements(self)`: Computes the small elements of the numerical set. Small elements are those numbers that are not gaps in the set, up to the Frobenius number (the largest gap). Returns a list of these small elements.
-
 ### NumericalSemigroup
 
 The `NumericalSemigroup` class is a subclass of `NumericalSet` and represents a numerical semigroup, which is a special kind of numerical set with additional properties and operations.
@@ -78,18 +71,6 @@ The `Partition` class represents a mathematical partition and provides methods f
 
 #### Methods
 
-- `small_nongaps(self)`: Computes the non-gap elements of a partition up to the Frobenius number (the largest gap). It returns a list of these non-gap elements. This method is useful for identifying elements that are not missing from the partition up to the largest missing element.
-
 ## Usage Example
 
-Below is an example of how to use the `Partition` class to compute non-gap elements of a partition:
-
-```python
-from pocketpartition.partition import Partition
-
-# Assuming a partition object has been created
-partition = Partition(...)
-
-# Compute non-gap elements
-nongaps = partition.small_nongaps()
-print("Non-gap elements:", nongaps)
+See `example_usage.ipynb` notebook
