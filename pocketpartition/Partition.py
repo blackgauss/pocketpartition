@@ -1,4 +1,3 @@
-
 class Partition:
     def __init__(self, partition):
         """

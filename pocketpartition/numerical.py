@@ -76,7 +76,6 @@ class NumericalSet:
                 small_elements.append(s)
         return small_elements
 
-
 class NumericalSemigroup(NumericalSet):
     def __init__(self, gaps=None, generators=None):
         """
@@ -124,6 +123,17 @@ class NumericalSemigroup(NumericalSet):
         # Identify the gaps, excluding 0
         gaps = set(range(1, bound)) - semigroup
         return gaps
+    
+    def multiplicity(self):
+        """
+        Compute the multiplicity of the numerical semigroup.
+
+        Returns:
+        int: The multiplicity of the numerical semigroup.
+        """
+        small_elements = self.small_elements()
+        nonzero = [element for element in small_elements if element !=0]
+        return min(nonzero) if nonzero else self.frobenius_number + 1
 
     def apery_set(self, n):
         """
@@ -161,7 +171,7 @@ class NumericalSemigroup(NumericalSet):
         The algorithm used here is based on the method described by Rosales and Vasco in their works on numerical semigroups.
         """
         generators = self._compute_generators_from_gaps()
-        multiplicity = min(generators)
+        multiplicity = self.multiplicity()
         
         if multiplicity == 1:
             return [1]
@@ -203,12 +213,20 @@ class NumericalSemigroup(NumericalSet):
         Returns:
         list of int: The generators of the numerical semigroup.
         """
-        generators = []
-        max_gap = max(self.gaps) if self.gaps else 0
+        multiplicity = self.multiplicity()
+        generators = [multiplicity]
+        frobenius_number = max(self.gaps) if self.gaps else 0
+        equiv_classes = [0]
 
-        for i in range(1, max_gap + 1):
-            if i not in self.gaps:
+        for i in range(multiplicity + 1, frobenius_number):
+            if i not in self.gaps and i % multiplicity not in equiv_classes:
                 generators.append(i)
+        
+        for i in range(frobenius_number + 1, frobenius_number + 1 + multiplicity):
+            if i % multiplicity not in equiv_classes:
+                generators.append(i)
+            if len(equiv_classes) == multiplicity:
+                break
         
         return generators
     
