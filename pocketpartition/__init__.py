@@ -1,3 +1,2 @@
-from .numerical import *
-from .partition import *
-from .random_numerical import *
+from .numerical import NumericalSet, NumericalSemigroup
+from .partition import Partition
