@@ -9,6 +9,19 @@ class NumericalSet:
         self.gaps = set(gaps)
         self.frobenius_number = max(self.gaps) if self.gaps else -1
 
+    def multiplicity(self):
+        """
+        Compute the multiplicity of the numerical semigroup.
+
+        Returns:
+        int: The multiplicity of the numerical semigroup.
+        """
+        if not self.gaps:
+            return 1
+        small_elements = self.small_elements()
+        nonzero = [element for element in small_elements if element !=0]
+        return min(nonzero) if nonzero else self.frobenius_number + 1
+    
     def atom_monoid(self):
         """
         Compute the gaps of the atom monoid.
@@ -123,19 +136,6 @@ class NumericalSemigroup(NumericalSet):
         # Identify the gaps, excluding 0
         gaps = set(range(1, bound)) - semigroup
         return gaps
-    
-    def multiplicity(self):
-        """
-        Compute the multiplicity of the numerical semigroup.
-
-        Returns:
-        int: The multiplicity of the numerical semigroup.
-        """
-        if not self.gaps:
-            return 1
-        small_elements = self.small_elements()
-        nonzero = [element for element in small_elements if element !=0]
-        return min(nonzero) if nonzero else self.frobenius_number + 1
 
     def apery_set(self, n):
         """
