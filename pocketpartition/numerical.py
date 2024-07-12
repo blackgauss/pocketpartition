@@ -179,6 +179,7 @@ class NumericalSemigroup(NumericalSet):
         The algorithm used here is based on the method described by Rosales and Vasco in their works on numerical semigroups.
         """
         generators = self._compute_generators_from_gaps()
+        generators.sort()
         multiplicity = self.multiplicity()
         
         if multiplicity == 1:
@@ -203,7 +204,7 @@ class NumericalSemigroup(NumericalSet):
                 for y in A:
                     if (x + y) in A:
                         to_remove.add(x+y)
-                        break  # No need to check further once x is found to be removable
+                        # break  # No need to check further once x is found to be removable
             A.difference_update(to_remove)
         
         remove_sum_of_two_elements(gen)
@@ -312,4 +313,27 @@ class NumericalSemigroup(NumericalSet):
     
     def type(self):
         return len(self.pseudofrobenius_numbers())
+    
 
+    def remove_minimal_generator(self, n):
+        """
+        Remove a minimal generator from a numerical semigroup.
+
+        Parameters:
+        n (int): The minimal generator to remove.
+
+        Returns:
+        NumericalSemigroup: The resulting numerical semigroup after removal.
+        """
+        if not isinstance(n, int):
+            raise ValueError("The first argument must be an integer.")
+
+        msg = self.minimal_generating_set()
+
+        if n not in msg:
+            raise ValueError(f"{n} must be a minimal generator of the numerical semigroup.")
+        
+        gaps = list(self.gaps)
+        gaps.append(n)
+        return NumericalSemigroup(gaps=gaps)
+    

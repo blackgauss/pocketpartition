@@ -12,10 +12,8 @@ def RandomNumericalSemigroupWithGenus(g):
     NumericalSemigroup: The generated numerical semigroup.
     """
     s = NumericalSemigroup(generators={1})
-    gapset = []
     for i in range(g):
         mingens = s.minimal_generating_set()
         x = random.choice(mingens)
-        gapset.append(x)
-        s = NumericalSemigroup(gaps=gapset)
+        s = s.remove_minimal_generator(x)
     return s
