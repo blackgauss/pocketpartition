@@ -337,3 +337,9 @@ class NumericalSemigroup(NumericalSet):
         gaps.append(n)
         return NumericalSemigroup(gaps=gaps)
     
+    def get_children(self):
+        mingens = self.minimal_generating_set()
+        frob = self.frobenius_number
+        effective_gens = [egen for egen in mingens if egen > frob]
+        children = [NumericalSemigroup(gaps=list(self.gaps) + [egen]) for egen in effective_gens]
+        return children
