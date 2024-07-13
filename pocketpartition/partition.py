@@ -1,6 +1,16 @@
 __all__ = ['Partition']  # Specify the items to be exported
 
 class Partition:
+    _instances = {}
+
+    def __new__(cls, partition):
+        partition_tuple = tuple(partition)
+        if partition_tuple in cls._instances:
+            return cls._instances[partition_tuple]
+        instance = super(Partition, cls).__new__(cls)
+        cls._instances[partition_tuple] = instance
+        return instance
+
     def __init__(self, partition):
         """
         Initialize the Partition object with a given partition.
@@ -17,10 +27,14 @@ class Partition:
         if not all(isinstance(x, int) and x > 0 for x in partition):
             raise ValueError("All elements of the partition must be positive integers.")
         
-        if not all(partition[i] >= partition[i+1] for i in range(len(partition) - 1)):
+        if not all(partition[i] >= partition[i + 1] for i in range(len(partition) - 1)):
             raise ValueError("Partition must be in non-increasing order.")
         
-        self.partition = partition
+        self._partition = partition
+
+    @property
+    def partition(self):
+        return self._partition
 
     def conjugate(self):
         """
