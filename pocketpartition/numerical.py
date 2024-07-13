@@ -2,6 +2,16 @@ __all__ = ['NumericalSet', 'NumericalSemigroup']  # Specify the items to be expo
 from collections import Counter
 
 class NumericalSet:
+    _instances = {}
+
+    def __new__(cls, gaps):
+        gaps_frozenset = frozenset(gaps)
+        if gaps_frozenset in cls._instances:
+            return cls._instances[gaps_frozenset]
+        instance = super(NumericalSet, cls).__new__(cls)
+        cls._instances[gaps_frozenset] = instance
+        return instance
+
     def __init__(self, gaps):
         """
         Initialize the numerical set with its gaps.
@@ -127,7 +137,8 @@ class NumericalSemigroup(NumericalSet):
                 raise ValueError("The provided gaps do not form a numerical semigroup because the atom monoid is not equal to the set itself.")
         self._frobenius_number = max(gaps) if gaps else -1
 
-    def _compute_gaps_from_generators(self, generators):
+    @staticmethod
+    def _compute_gaps_from_generators(generators):
         """
         Compute the gaps of the numerical semigroup given its generators.
 
