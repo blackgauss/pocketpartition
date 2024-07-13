@@ -116,6 +116,20 @@ class NumericalSet:
     
     
 class NumericalSemigroup(NumericalSet):
+    _instances = {}
+
+    def __new__(cls, gaps=None, generators=None):
+        if generators is not None:
+            gaps_frozenset = frozenset(cls._compute_gaps_from_generators(generators))
+        else:
+            gaps_frozenset = frozenset(gaps)
+        
+        if gaps_frozenset in cls._instances:
+            return cls._instances[gaps_frozenset]
+        instance = super(NumericalSemigroup, cls).__new__(cls)
+        cls._instances[gaps_frozenset] = instance
+        return instance
+    
     def __init__(self, gaps=None, generators=None):
         """
         Initialize the numerical semigroup with its gaps or generators.
@@ -382,7 +396,7 @@ class NumericalSemigroup(NumericalSet):
             A list of special gaps.
         """
         gaps = self.gaps.copy()
-        f = self.frobenius_number()
+        f = self.frobenius_number
         pf = self.pseudofrobenius_numbers()
         sgaps = []
         for p in pf:
