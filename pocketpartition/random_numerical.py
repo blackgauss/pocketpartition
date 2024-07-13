@@ -18,7 +18,7 @@ def RandomNumericalSemigroupWithGenus(g):
         s = s.remove_minimal_generator(x)
     return s
 
-def RandomTreeWalk(g):
+def RandomGraphWalk(start, g):
     """
     Generates a random numerical semigroup with a given genus.
         https://github.com/gap-packages/numericalsgps/blob/master/gap/random.gi
@@ -28,7 +28,24 @@ def RandomTreeWalk(g):
     Returns:
     NumericalSemigroup: The generated numerical semigroup.
     """
-    s = NumericalSemigroup(generators={1})
+    s = start
+    for i in range(g):
+        mingens = s.minimal_generating_set()
+        x = random.choice(mingens)
+        s = s.remove_minimal_generator(x)
+    return s
+
+def RandomTreeWalk(start, g):
+    """
+    Generates a random numerical semigroup with a given genus.
+        https://github.com/gap-packages/numericalsgps/blob/master/gap/random.gi
+    Parameters:
+    g (int): The genus of the numerical semigroup.
+
+    Returns:
+    NumericalSemigroup: The generated numerical semigroup.
+    """
+    s = start
     for i in range(g):
         mingens = s.minimal_generating_set()
         frob = s.frobenius_number
@@ -37,5 +54,5 @@ def RandomTreeWalk(g):
             x = random.choice(effective_gens)
             s = s.remove_minimal_generator(x)
         else:
-            return s
+            return
     return s

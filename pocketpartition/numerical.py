@@ -9,8 +9,16 @@ class NumericalSet:
         Parameters:
         gaps (list of int): The gaps of the numerical set.
         """
-        self.gaps = set(gaps)
-        self.frobenius_number = max(self.gaps) if self.gaps else -1
+        self._gaps = frozenset(gaps)
+        self._frobenius_number = max(self._gaps) if self._gaps else -1
+
+    @property
+    def gaps(self):
+        return self._gaps
+
+    @property
+    def frobenius_number(self):
+        return self._frobenius_number
     
     def atom_monoid(self):
         """
@@ -20,9 +28,10 @@ class NumericalSet:
         set of int: The gaps of the atom monoid.
         """
         gaps_atom_monoid = set()
-        max_gap = max(self.gaps) if self.gaps else 0
+        gaps = self.gaps.copy()
+        max_gap = max(gaps) if gaps else 0
         for x in range(max_gap + max_gap + 1):
-            if any(x + t in self.gaps for t in range(max_gap + 1) if t not in self.gaps):
+            if any(x + t in gaps for t in range(max_gap + 1) if t not in gaps):
                 gaps_atom_monoid.add(x)
         return gaps_atom_monoid
 
@@ -42,11 +51,12 @@ class NumericalSet:
             Returns:
             list: A partition [a1, a2, ..., an] in non-increasing order, representing the profile of the walk.
             """
-            if not self.gaps:
+            gaps = self.gaps.copy()
+            if not gaps:
                 return []
 
             # Sort the set gaps
-            gaps = sorted(self.gaps)
+            gaps = sorted(gaps)
 
             # Initialize the current row and the partition list
             current_row_length = 0
@@ -71,7 +81,7 @@ class NumericalSet:
         Returns:
         set of int: The small elements of the numerical set.
         """
-        gaps = self.gaps
+        gaps = self.gaps.copy()
         if not gaps:
             return set()
         frobenius_number = max(gaps)
@@ -109,12 +119,13 @@ class NumericalSemigroup(NumericalSet):
         """
         if generators is not None:
             # If generators are provided, compute the gaps from the generators
-            self.gaps = self._compute_gaps_from_generators(generators)
+            self._gaps = self._compute_gaps_from_generators(generators)
         else:
             super().__init__(gaps)
-            if self.atom_monoid() != self.gaps:
+            gaps = self._gaps
+            if self.atom_monoid() != gaps:
                 raise ValueError("The provided gaps do not form a numerical semigroup because the atom monoid is not equal to the set itself.")
-        self.frobenius_number = max(self.gaps) if self.gaps else -1
+        self._frobenius_number = max(gaps) if gaps else -1
 
     def _compute_gaps_from_generators(self, generators):
         """
@@ -153,6 +164,7 @@ class NumericalSemigroup(NumericalSet):
         Returns:
         set of int: The Apéry set with respect to n.
         """
+        gaps = self.gaps.copy()
         if not isinstance(n, int) or n < 0:
             raise ValueError("n must be a nonnegative integer")
         
@@ -160,10 +172,10 @@ class NumericalSemigroup(NumericalSet):
             raise ValueError("n must not be in the gaps of the atom monoid")
 
         apery_set = set()
-        max_gap = max(self.gaps) if self.gaps else 0
+        max_gap = max(gaps) if gaps else 0
         for k in range(n):
             x = k
-            while x in self.gaps:
+            while x in gaps:
                 x += n
             apery_set.add(x)
 
@@ -219,13 +231,14 @@ class NumericalSemigroup(NumericalSet):
         Returns:
         list of int: The generators of the numerical semigroup.
         """
+        gaps = self.gaps.copy()
         multiplicity = self.multiplicity()
         generators = [multiplicity]
-        frobenius_number = max(self.gaps) if self.gaps else 0
+        frobenius_number = max(gaps) if gaps else 0
         equiv_classes = [0]
 
         for i in range(multiplicity + 1, frobenius_number):
-            if i not in self.gaps and i % multiplicity not in equiv_classes:
+            if i not in gaps and i % multiplicity not in equiv_classes:
                 generators.append(i)
                 equiv_classes.append(i % multiplicity)
         
@@ -244,7 +257,7 @@ class NumericalSemigroup(NumericalSet):
         Returns:
         set: The void of the numerical semigroup.
         """
-        gaps = self.gaps
+        gaps = self.gaps.copy()
         F = max(gaps)
         void = [g for g in gaps if g in gaps and F-g in gaps]
         return void
@@ -256,7 +269,7 @@ class NumericalSemigroup(NumericalSet):
         Returns:
         set of tuple: The poset of the gaps of the numerical semigroup.
         """
-        gaps = self.gaps
+        gaps = self.gaps.copy()
         poset = [(y, x) for x in gaps for y in gaps if x <= y and (y - x) not in gaps]
         return poset
     
@@ -268,7 +281,7 @@ class NumericalSemigroup(NumericalSet):
         set of tuple: The poset of the void of the numerical semigroup.
         """
         void = self.void()
-        gaps = self.gaps
+        gaps = self.gaps.copy()
         poset = [(y, x) for x in void for y in void if x <= y and (y - x) not in gaps]
         return poset
     
@@ -281,7 +294,7 @@ class NumericalSemigroup(NumericalSet):
             Returns:
                 int: The effective weight of the numerical partition.
             """
-            gaps = self.gaps
+            gaps = self.gaps.copy()
             def boxes_above(s):
                 above = []
                 for gap in gaps:
@@ -302,7 +315,7 @@ class NumericalSemigroup(NumericalSet):
             """
             hookset = []
             small_elements = self.small_elements()
-            gaps = self.gaps
+            gaps = self.gaps.copy()
             for s in small_elements:
                 for gap in gaps:
                     if gap > s:
@@ -333,13 +346,52 @@ class NumericalSemigroup(NumericalSet):
         if n not in msg:
             raise ValueError(f"{n} must be a minimal generator of the numerical semigroup.")
         
-        gaps = list(self.gaps)
+        gaps = list(self.gaps.copy())
         gaps.append(n)
         return NumericalSemigroup(gaps=gaps)
     
     def get_children(self):
+        gaps = self.gaps.copy()
         mingens = self.minimal_generating_set()
         frob = self.frobenius_number
         effective_gens = [egen for egen in mingens if egen > frob]
-        children = [NumericalSemigroup(gaps=list(self.gaps) + [egen]) for egen in effective_gens]
+        children = [NumericalSemigroup(gaps=list(gaps) + [egen]) for egen in effective_gens]
+        return children
+    
+    def get_parent(self):
+        gaps = self.gaps.copy()
+        gaps = set(gaps)
+        gaps.remove(max(gaps))
+        return NumericalSemigroup(gaps)
+
+    def special_gaps(self):
+        """
+        compute the gaps that can be added to S and still have a numerical semigroup.
+        Returns:
+            A list of special gaps.
+        """
+        gaps = self.gaps.copy()
+        f = self.frobenius_number()
+        pf = self.pseudofrobenius_numbers()
+        sgaps = []
+        for p in pf:
+            mult = [p * i for i in range(2, (f // p) + 1)]
+            if not any(m in gaps for m in mult):
+                sgaps.append(p)
+        return sgaps
+    
+    def add_specialgap(self, p):
+        """
+        Add a special gap to the numerical semigroup.
+        """
+        if p not in self.special_gaps():
+            raise ValueError(f"{p} is not a special gap for the numerical semigroup.")
+        gaps = self.gaps.copy()
+        gaps = set(gaps)
+        gaps.remove(p)
+        return NumericalSemigroup(gaps=gaps)
+    
+    def get_frobchildren(self):
+        good_specialgaps = [p for p in self.special_gaps() if p != self.frobenius_number]
+        children = [self.add_specialgap(p) for p in good_specialgaps]
         return children
