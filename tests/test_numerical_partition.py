@@ -1,7 +1,7 @@
 import unittest
 import random
-from pocketpartition.numerical import NumericalSet
-from pocketpartition.partition import Partition
+from src.pocketpartition.numerical import NumericalSet
+from src.pocketpartition.partition import Partition
 
 def generate_random_partition():
     length = random.randint(1, 10)  # Random length of the partition

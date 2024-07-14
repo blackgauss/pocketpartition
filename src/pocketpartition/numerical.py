@@ -1,6 +1,6 @@
 __all__ = ['NumericalSet', 'NumericalSemigroup']  # Specify the items to be exported
 from collections import Counter
-from .helpers import remove_sum_of_two_elements
+from ..utils.helpers import remove_sum_of_two_elements
 
 class NumericalSet:
     _instances: dict = {}
