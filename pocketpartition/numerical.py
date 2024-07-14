@@ -1,5 +1,6 @@
 __all__ = ['NumericalSet', 'NumericalSemigroup']  # Specify the items to be exported
 from collections import Counter
+from .utils import is_list_of_positive_integers, is_non_increasing, get_instance, compute_conjugate, compute_hook_lengths, compute_profile
 
 class NumericalSet:
     _instances = {}
