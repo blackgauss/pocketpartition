@@ -1,9 +1,9 @@
 __all__ = ['NumericalSet', 'NumericalSemigroup']  # Specify the items to be exported
 from collections import Counter
-from .utils import is_list_of_positive_integers, is_non_increasing, get_instance, compute_conjugate, compute_hook_lengths, compute_profile
+from .utils import is_list_of_positive_integers, is_non_increasing, get_instance, compute_conjugate, compute_hook_lengths, compute_profile, remove_sum_of_two_elements
 
 class NumericalSet:
-    _instances = {}
+    _instances: dict = {}
 
     def __new__(cls, gaps):
         gaps_frozenset = frozenset(gaps)
@@ -179,13 +179,13 @@ class NumericalSemigroup(NumericalSet):
         """
         # Compute the elements of the semigroup up to twice the maximum generator
         semigroup = set()
-        # max_gen = max(generators)
+        reduced_gens = remove_sum_of_two_elements(set(generators))
         product_of_gens = 1
-        for gen in generators:
+        for gen in reduced_gens:
             product_of_gens *= gen
         bound = product_of_gens
         for i in range(bound):
-            for g in generators:
+            for g in reduced_gens:
                 if i - g in semigroup or i - g == 0:
                     semigroup.add(i)
                     break
@@ -212,7 +212,6 @@ class NumericalSemigroup(NumericalSet):
             raise ValueError("n must not be in the gaps of the atom monoid")
 
         apery_set = set()
-        max_gap = max(gaps) if gaps else 0
         for k in range(n):
             x = k
             while x in gaps:
@@ -250,17 +249,7 @@ class NumericalSemigroup(NumericalSet):
         aux.sort()
         gen = set(aux)
         
-        def remove_sum_of_two_elements(A):
-            to_remove = set()
-            for x in A:
-                for y in A:
-                    if (x + y) in A:
-                        to_remove.add(x+y)
-                        # break  # No need to check further once x is found to be removable
-            A.difference_update(to_remove)
-        
-        remove_sum_of_two_elements(gen)
-        min_gens = list(gen)
+        min_gens = list(remove_sum_of_two_elements(gen))
         min_gens.sort()
         return min_gens
 
@@ -389,12 +378,17 @@ class NumericalSemigroup(NumericalSet):
         gaps = list(self.gaps.copy())
         gaps.append(n)
         return NumericalSemigroup(gaps=gaps)
-    
-    def get_children(self):
-        gaps = self.gaps.copy()
+
+    def effective_generators(self):
         mingens = self.minimal_generating_set()
         frob = self.frobenius_number
         effective_gens = [egen for egen in mingens if egen > frob]
+        return effective_gens
+
+    
+    def get_children(self):
+        gaps = self.gaps.copy()
+        effective_gens = self.effective_generators()
         children = [NumericalSemigroup(gaps=list(gaps) + [egen]) for egen in effective_gens]
         return children
     
