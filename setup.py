@@ -1,13 +1,10 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
 setup(
     name='pocketpartition',
     version='0.2.0',
-    package_dir={"":"src"},
-    packages=find_packages(where="src"),  # No need to specify 'where' if everything is at the top level
+    packages=find_packages(where='src'),
+    package_dir={'': 'src'},
     url='https://github.com/blackgauss/pocketpartition',
     license='MIT',
     author='Erik Imathiu-Jones',

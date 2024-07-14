@@ -1,3 +1,3 @@
-from .random_numerical import RandomNumericalSemigroupWithGenus
+#from .random_numerical import RandomNumericalSemigroupWithGenus
 
-__all__ = ['RandomNumericalSemigroupWithGenus']
+#__all__ = ['RandomNumericalSemigroupWithGenus']
