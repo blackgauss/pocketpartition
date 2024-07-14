@@ -31,6 +31,13 @@ class NumericalSet:
     def frobenius_number(self):
         return self._frobenius_number
     
+    def __str__(self):
+        return f"NumericalSet(gaps={sorted(self.gaps)})"
+
+    def __repr__(self):
+        return f"NumericalSet(gaps={sorted(self.gaps)}, frobenius_number={self.frobenius_number})"
+
+    
     def atom_monoid(self):
         """
         Compute the gaps of the atom monoid.
@@ -152,6 +159,12 @@ class NumericalSemigroup(NumericalSet):
                 raise ValueError("The provided gaps do not form a numerical semigroup because the atom monoid is not equal to the set itself.")
         
         self._frobenius_number = max(gaps) if gaps else -1
+
+    def __str__(self):
+        return f"NumericalSemigroup(gaps={sorted(self.gaps)})"
+
+    def __repr__(self):
+        return f"NumericalSemigroup(gaps={sorted(self.gaps)}, frobenius_number={self.frobenius_number})"
 
     @staticmethod
     def _compute_gaps_from_generators(generators):
