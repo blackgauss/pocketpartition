@@ -43,6 +43,12 @@ To install Pocket Partition, run the following command:
 pip install git+https://github.com/blackgauss/pocketpartition.git
 ```
 
+To update Pocket Partition run the following command:
+
+```sh
+pip install --upgrade git+https://github.com/blackgauss/pocketpartition.git
+```
+
 # Numerical Module Documentation
 
 The `numerical.py` module in the Pocket Partition package provides classes and functions for working with numerical sets and semigroups. It is designed to facilitate operations such as partitioning numerical sets, computing small elements, and handling numerical semigroups.
