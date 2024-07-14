@@ -127,7 +127,8 @@ class NumericalSemigroup(NumericalSet):
         
         if gaps_frozenset in cls._instances:
             return cls._instances[gaps_frozenset]
-        instance = super(NumericalSemigroup, cls).__new__(cls)
+        
+        instance = super(NumericalSemigroup, cls).__new__(cls, gaps=gaps_frozenset)
         cls._instances[gaps_frozenset] = instance
         return instance
     
@@ -143,13 +144,13 @@ class NumericalSemigroup(NumericalSet):
         ValueError: If the atom monoid of the numerical set is not equal to the set itself.
         """
         if generators is not None:
-            # If generators are provided, compute the gaps from the generators
             self._gaps = self._compute_gaps_from_generators(generators)
         else:
             super().__init__(gaps)
             gaps = self._gaps
             if self.atom_monoid() != gaps:
                 raise ValueError("The provided gaps do not form a numerical semigroup because the atom monoid is not equal to the set itself.")
+        
         self._frobenius_number = max(gaps) if gaps else -1
 
     @staticmethod
