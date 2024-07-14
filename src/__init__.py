@@ -1,5 +1,5 @@
-from .core.numerical import NumericalSet, NumericalSemigroup
-from .core.partition import Partition
-from .core.random_numerical import RandomNumericalSemigroupWithGenus
+from .pocketpartition.numerical import NumericalSet, NumericalSemigroup
+from .pocketpartition.partition import Partition
+from .pocketpartition.random_numerical import RandomNumericalSemigroupWithGenus
 
 __all__ = ['NumericalSet', 'NumericalSemigroup', 'Partition', 'RandomNumericalSemigroupWithGenus']
