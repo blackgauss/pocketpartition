@@ -79,15 +79,15 @@ def compute_layout(elements, relations):
 
     return positions
 
-def generate_tikz(elements, relations):
+def generate_hasse_tikz(elements, relations):
+    if not elements:
+        return ""
+
     positions = compute_layout(elements, relations)
 
     # Find the largest element
     largest_element = max(elements)
-
-    tikz_code = "\\documentclass{standalone}\n"
-    tikz_code += "\\usepackage{tikz}\n"
-    tikz_code += "\\begin{document}\n"
+    tikz_code = ''
     tikz_code += "\\begin{tikzpicture}[scale=1, transform shape]\n"
 
     # Add nodes with positions
@@ -97,12 +97,52 @@ def generate_tikz(elements, relations):
         else:
             tikz_code += f"  \\node ({element}) at ({pos[0]},{pos[1]}) {{{element}}};\n"
 
-    # Draw the cover relations
-    tikz_code += "  % Draw the cover relations\n"
-    for i, j in relations:
-        tikz_code += f"  \\draw ({i}) -- ({j});\n"
+    if relations:
+        # Draw the cover relations
+        tikz_code += "  % Draw the cover relations\n"
+        for i, j in relations:
+            tikz_code += f"  \\draw ({i}) -- ({j});\n"
 
     tikz_code += "\\end{tikzpicture}\n"
-    tikz_code += "\\end{document}\n"
 
     return tikz_code
+
+def generate_ferrers_tikz(hook_lengths, display_hooks=False):
+    tikz_code = ''
+    tikz_code += "\\begin{tikzpicture}[scale=0.5]\n"
+    
+    for i, row in enumerate(hook_lengths):
+        for j, hook in enumerate(row):
+            if display_hooks:
+                tikz_code += f"  \\node[draw, minimum size=0.5cm, anchor=center] at ({j}, {-i}) {{{hook}}};\n"
+            else:
+                tikz_code += f"  \\node[draw, minimum size=0.5cm, anchor=center] at ({j}, {-i}) {{}};\n"
+
+    tikz_code += "\\end{tikzpicture}\n"
+    
+    return tikz_code
+
+def generate_latex_table(data):
+    """
+    Generate LaTeX code for a table given a dictionary of label-value pairs.
+
+    Parameters:
+    data (dict): A dictionary where keys are labels and values are the corresponding values.
+
+    Returns:
+    str: The LaTeX code for the table.
+    """
+    labels = list(data.keys())
+    values_raw = [data[label] for label in labels]
+    values = [str(value) for value in values_raw]
+
+    latex_code = ''
+    latex_code += "\\begin{tabular}{|" + "c|" * len(labels) + "}\n"
+    latex_code += "\\toprule\n"
+    latex_code += " & ".join(labels) + " \\\\\n"
+    latex_code += "\\midrule\n"
+    latex_code += " & ".join(values) + " \\\\\n"
+    latex_code += "\\bottomrule\n"
+    latex_code += "\\end{tabular}\n"
+
+    return latex_code
