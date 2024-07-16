@@ -3,6 +3,8 @@
 
 Pocket Partition is a Python package designed for handling numerical sets and partitions.
 
+For more detailed information, refer to the full documentation available at [Read the Docs](https://pocketpartition.readthedocs.io/en/latest/).
+
 ## Installation
 
 To install Pocket Partition, run the following command:
