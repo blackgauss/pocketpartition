@@ -3,6 +3,7 @@ __all__ = ['NumericalSemigroup']
 from .numerical_set import NumericalSet
 from collections import Counter
 from ..utils.helpers import remove_sum_of_two_elements
+from functools import lru_cache
 
 class NumericalSemigroup(NumericalSet):
     _instances = {}
@@ -74,7 +75,9 @@ class NumericalSemigroup(NumericalSet):
         # Identify the gaps, excluding 0
         gaps = set(range(1, bound)) - semigroup
         return gaps
+    
 
+    @lru_cache(maxsize=None)
     def apery_set(self, n):
         """
         Compute the Apéry set of the numerical set with respect to n.
@@ -101,6 +104,7 @@ class NumericalSemigroup(NumericalSet):
 
         return apery_set
 
+    @lru_cache(maxsize=None)
     def minimal_generating_set(self):
         """
         Compute the minimal generating set of the numerical semigroup.
@@ -169,7 +173,7 @@ class NumericalSemigroup(NumericalSet):
         """
         gaps = self.gaps.copy()
         F = max(gaps)
-        void = [g for g in gaps if g in gaps and F-g in gaps]
+        void = [g for g in gaps if (g in gaps) and (F-g in gaps)]
         return void
     
     def gap_poset(self):
@@ -180,8 +184,8 @@ class NumericalSemigroup(NumericalSet):
         set of tuple: The poset of the gaps of the numerical semigroup.
         """
         gaps = self.gaps.copy()
-        poset = [(y, x) for x in gaps for y in gaps if x <= y and (y - x) not in gaps]
-        return poset
+        gap_relations = [(y, x) for x in gaps for y in gaps if x <= y and (y - x) not in gaps]
+        return (gaps, gap_relations)
     
     def void_poset(self):
         """
@@ -190,11 +194,12 @@ class NumericalSemigroup(NumericalSet):
         Returns:
         set of tuple: The poset of the void of the numerical semigroup.
         """
-        void = self.void()
+        void = self.void().copy()
         gaps = self.gaps.copy()
-        poset = [(y, x) for x in void for y in void if x <= y and (y - x) not in gaps]
-        return poset
-    
+        void_relations = [(y, x) for x in void for y in void if x <= y and (y - x) not in gaps]
+        return (void, void_relations)
+
+    @lru_cache(maxsize=None)
     def effective_weight(self):
             """
             Calculates the effective weight of the numerical partition.
@@ -236,7 +241,6 @@ class NumericalSemigroup(NumericalSet):
     
     def type(self):
         return len(self.pseudofrobenius_numbers())
-    
 
     def remove_minimal_generator(self, n):
         """
@@ -265,7 +269,6 @@ class NumericalSemigroup(NumericalSet):
         frob = self.frobenius_number
         effective_gens = [egen for egen in mingens if egen > frob]
         return effective_gens
-
     
     def get_children(self):
         gaps = self.gaps.copy()

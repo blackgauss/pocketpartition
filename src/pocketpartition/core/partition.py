@@ -107,7 +107,7 @@ class Partition:
             i += 1
         return gap_set
     
-    def nongaps(self):
+    def non_gaps(self):
         gaps = self.gaps()
         frobenius_number = max(gaps)
         nongaps = []
