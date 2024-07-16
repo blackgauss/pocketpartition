@@ -185,7 +185,7 @@ class NumericalSemigroup(NumericalSet):
         """
         gaps = self.gaps.copy()
         gap_relations = [(y, x) for x in gaps for y in gaps if x <= y and (y - x) not in gaps]
-        return (gaps, gap_relations)
+        return (list(gaps), gap_relations)
     
     def void_poset(self):
         """
@@ -197,7 +197,7 @@ class NumericalSemigroup(NumericalSet):
         void = self.void().copy()
         gaps = self.gaps.copy()
         void_relations = [(y, x) for x in void for y in void if x <= y and (y - x) not in gaps]
-        return (void, void_relations)
+        return (list(void), void_relations)
 
     @lru_cache(maxsize=None)
     def effective_weight(self):
