@@ -1,13 +1,28 @@
 version: 2
 
-build:
-  os: ubuntu-22.04
-  tools:
-    python: "3.9"
+# Build documentation in the docs/ directory with Sphinx
+sphinx:
+  configuration: docs/conf.py
 
+# Define the version of Python to use
 python:
+  version: "3.6"
   install:
     - requirements: docs/requirements.txt
 
-sphinx:
-  configuration: docs/conf.py
+# If your documentation requires any special environment variables
+# or build commands, specify them here
+
+# Build all branches and tags
+build:
+  os: ubuntu-20.04
+  tools:
+    python: "3.6"
+  jobs:
+    include:
+      - name: "HTML"
+        environment:
+          - name: READTHEDOCS
+            value: "True"
+        commands:
+          - sphinx-build -b html docs/ _build/html
