@@ -1,3 +1,19 @@
+def flatten_list(nested_list):
+    """
+    Flattens a list of lists.
+
+    Args:
+        nested_list (list): A list of lists to be flattened.
+
+    Returns:
+        list: A single flattened list containing all the elements.
+    """
+    flattened_list = []
+    for sublist in nested_list:
+        for item in sublist:
+            flattened_list.append(item)
+    return flattened_list
+
 def is_list_of_positive_integers(lst):
     if not isinstance(lst, list):
         raise ValueError("Input must be a list.")

@@ -1,4 +1,4 @@
-from .numerical import NumericalSemigroup
+from .numerical_semigroup import NumericalSemigroup
 import random
 
 def RandomNumericalSemigroupWithGenus(g):

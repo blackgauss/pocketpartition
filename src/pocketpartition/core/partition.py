@@ -1,4 +1,7 @@
 __all__ = ['Partition']  # Specify the items to be exported
+from ..utils.helpers import flatten_list
+from functools import lru_cache
+
 
 class Partition:
     _instances: dict = {}
@@ -32,6 +35,9 @@ class Partition:
         
         self._partition = partition
 
+    def __repr__(self):
+        return f"Partition(size={sum(self.partition)})"
+    
     @property
     def partition(self):
         return self._partition
@@ -45,6 +51,7 @@ class Partition:
         """
         return [sum(1 for p in self.partition if p > i) for i in range(max(self.partition))]
     
+    @lru_cache(None)
     def hook_lengths(self):
         """
         Compute the hook length of a cell in the partition.
@@ -134,6 +141,10 @@ class Partition:
                 current_row += 1
         partition.sort(reverse=True)
         return partition
+    
+    def atom_monoid_gaps(self):
+        gapset = flatten_list(self.hook_lengths())
+        return gapset
 
     def is_semigroup(self):
         return self.atom_partition() == self.partition

@@ -1,6 +1,6 @@
 import unittest
 import random
-from src.pocketpartition.core.numerical import NumericalSet
+from src.pocketpartition.core.numerical_set import NumericalSet
 from src.pocketpartition.core.partition import Partition
 
 def generate_random_partition():
