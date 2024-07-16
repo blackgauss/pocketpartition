@@ -4,4 +4,4 @@ from .core.numerical_functions import atom_monoid, partition, gap_poset, void_po
 from .core.partition import Partition
 from .core.random_numerical import RandomNumericalSemigroupWithGenus
 
-__all__ = ['NumericalSet', 'NumericalSemigroup', 'Partition', 'RandomNumericalSemigroupWithGenus']
+__all__ = ['NumericalSet', 'NumericalSemigroup', 'Partition', 'RandomNumericalSemigroupWithGenus', 'atom_monoid', 'partition', 'gap_poset', 'void_poset']
