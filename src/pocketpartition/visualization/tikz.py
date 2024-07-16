@@ -79,7 +79,7 @@ def compute_layout(elements, relations):
 
     return positions
 
-def generate_hasse_tikz(elements, relations, max_width=10, max_height=10):
+def generate_hasse_tikz(elements, relations, node_size=0.5, vertical_spacing=1.0, horizontal_spacing=1.0):
     if not elements:
         return ""
 
@@ -87,15 +87,17 @@ def generate_hasse_tikz(elements, relations, max_width=10, max_height=10):
 
     # Find the largest element
     largest_element = max(elements)
-    scale_factor = min(max_width / max(1, len(positions)), max_height / max(1, len(positions)))
-    tikz_code = "\\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=" + str(scale_factor) + "]\n"
+
+    tikz_code = "\\begin{tikzpicture}\n"
 
     # Add nodes with positions
     for element, pos in positions.items():
+        x = pos[0] * horizontal_spacing
+        y = pos[1] * vertical_spacing
         if element == largest_element:
-            tikz_code += f"  \\node[draw, rectangle] ({element}) at ({pos[0]},{pos[1]}) {{{element}}};\n"
+            tikz_code += f"  \\node[draw, rectangle, minimum size={node_size}cm] ({element}) at ({x:.2f},{y:.2f}) {{{element}}};\n"
         else:
-            tikz_code += f"  \\node ({element}) at ({pos[0]},{pos[1]}) {{{element}}};\n"
+            tikz_code += f"  \\node[minimum size={node_size}cm] ({element}) at ({x:.2f},{y:.2f}) {{{element}}};\n"
 
     if relations:
         # Draw the cover relations

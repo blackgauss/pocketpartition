@@ -34,8 +34,8 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=10.0]
-  \node[draw, rectangle] (1) at (0,0) {1};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (1) at (0.00,0.00) {1};
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
@@ -62,15 +62,15 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (1) at (0,0) {1};
-  \node[draw, rectangle] (2) at (2,0) {2};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,0.00) {1};
+  \node[draw, rectangle, minimum size=0.5cm] (2) at (2.00,0.00) {2};
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=10.0]
-  \node[draw, rectangle] (1) at (0,0) {1};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (1) at (0.00,0.00) {1};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [2, 5]}
@@ -94,9 +94,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (1) at (0,-2) {1};
-  \node[draw, rectangle] (3) at (0,0) {3};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[draw, rectangle, minimum size=0.5cm] (3) at (0.00,0.00) {3};
   % Draw the cover relations
   \draw (3) -- (1);
 \end{tikzpicture}
@@ -126,17 +126,17 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (1) at (0,0) {1};
-  \node (2) at (2,0) {2};
-  \node[draw, rectangle] (3) at (4,0) {3};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,0.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,0.00) {2};
+  \node[draw, rectangle, minimum size=0.5cm] (3) at (4.00,0.00) {3};
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (1) at (0,0) {1};
-  \node[draw, rectangle] (2) at (2,0) {2};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,0.00) {1};
+  \node[draw, rectangle, minimum size=0.5cm] (2) at (2.00,0.00) {2};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [3, 5, 7]}
@@ -161,18 +161,18 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (1) at (0,-2) {1};
-  \node (2) at (0,0) {2};
-  \node[draw, rectangle] (4) at (2,0) {4};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[draw, rectangle, minimum size=0.5cm] (4) at (2.00,0.00) {4};
   % Draw the cover relations
   \draw (4) -- (1);
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=10.0]
-  \node[draw, rectangle] (2) at (0,0) {2};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (2) at (0.00,0.00) {2};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [3, 4]}
@@ -198,10 +198,10 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node[draw, rectangle] (5) at (0,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (0.00,0.00) {5};
   % Draw the cover relations
   \draw (5) -- (1);
   \draw (5) -- (2);
@@ -234,10 +234,10 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (1) at (0,-4) {1};
-  \node (3) at (0,-2) {3};
-  \node[draw, rectangle] (5) at (0,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (3) at (0.00,-2.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (0.00,0.00) {5};
   % Draw the cover relations
   \draw (3) -- (1);
   \draw (5) -- (3);
@@ -269,19 +269,19 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,0) {1};
-  \node (2) at (2,0) {2};
-  \node (3) at (4,0) {3};
-  \node[draw, rectangle] (4) at (6,0) {4};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,0.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,0.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (4) at (6.00,0.00) {4};
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (1) at (0,0) {1};
-  \node (2) at (2,0) {2};
-  \node[draw, rectangle] (3) at (4,0) {3};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,0.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,0.00) {2};
+  \node[draw, rectangle, minimum size=0.5cm] (3) at (4.00,0.00) {3};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [4, 6, 7, 9]}
@@ -307,20 +307,20 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,-2) {1};
-  \node (2) at (0,0) {2};
-  \node (3) at (2,0) {3};
-  \node[draw, rectangle] (5) at (4,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (2.00,0.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (4.00,0.00) {5};
   % Draw the cover relations
   \draw (5) -- (1);
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (2) at (0,0) {2};
-  \node[draw, rectangle] (3) at (2,0) {3};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[draw, rectangle, minimum size=0.5cm] (3) at (2.00,0.00) {3};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [4, 5, 7]}
@@ -347,11 +347,11 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (0,0) {3};
-  \node[draw, rectangle] (6) at (2,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (2.00,0.00) {6};
   % Draw the cover relations
   \draw (6) -- (1);
   \draw (6) -- (2);
@@ -359,8 +359,8 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=10.0]
-  \node[draw, rectangle] (3) at (0,0) {3};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (3) at (0.00,0.00) {3};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [4, 5, 6]}
@@ -388,11 +388,11 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node[draw, rectangle] (7) at (0,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (0.00,0.00) {7};
   % Draw the cover relations
   \draw (7) -- (1);
   \draw (7) -- (2);
@@ -426,11 +426,11 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (4) at (0,0) {4};
-  \node[draw, rectangle] (5) at (2,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (4) at (0.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (2.00,0.00) {5};
   % Draw the cover relations
   \draw (4) -- (1);
   \draw (5) -- (2);
@@ -438,9 +438,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (1) at (0,-2) {1};
-  \node[draw, rectangle] (4) at (0,0) {4};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[draw, rectangle, minimum size=0.5cm] (4) at (0.00,0.00) {4};
   % Draw the cover relations
   \draw (4) -- (1);
 \end{tikzpicture}
@@ -471,11 +471,11 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,-4) {1};
-  \node (2) at (0,-2) {2};
-  \node (4) at (2,-2) {4};
-  \node[draw, rectangle] (7) at (0,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,-2.00) {2};
+  \node[minimum size=0.5cm] (4) at (2.00,-2.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (0.00,0.00) {7};
   % Draw the cover relations
   \draw (7) -- (4);
   \draw (4) -- (1);
@@ -513,11 +513,11 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,-6) {1};
-  \node (3) at (0,-4) {3};
-  \node (5) at (0,-2) {5};
-  \node[draw, rectangle] (7) at (0,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-6.00) {1};
+  \node[minimum size=0.5cm] (3) at (0.00,-4.00) {3};
+  \node[minimum size=0.5cm] (5) at (0.00,-2.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (0.00,0.00) {7};
   % Draw the cover relations
   \draw (3) -- (1);
   \draw (5) -- (3);
@@ -551,21 +551,21 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,0) {1};
-  \node (2) at (2,0) {2};
-  \node (3) at (4,0) {3};
-  \node (4) at (6,0) {4};
-  \node[draw, rectangle] (5) at (8,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,0.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (6.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (8.00,0.00) {5};
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,0) {1};
-  \node (2) at (2,0) {2};
-  \node (3) at (4,0) {3};
-  \node[draw, rectangle] (4) at (6,0) {4};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,0.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,0.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (4) at (6.00,0.00) {4};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [5, 7, 8, 9, 11]}
@@ -592,22 +592,22 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-2) {1};
-  \node (2) at (0,0) {2};
-  \node (3) at (2,0) {3};
-  \node (4) at (4,0) {4};
-  \node[draw, rectangle] (6) at (6,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (2.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (4.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (6.00,0.00) {6};
   % Draw the cover relations
   \draw (6) -- (1);
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (2) at (0,0) {2};
-  \node (3) at (2,0) {3};
-  \node[draw, rectangle] (4) at (4,0) {4};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (2.00,0.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (4) at (4.00,0.00) {4};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [5, 6, 8, 9]}
@@ -635,12 +635,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (0,0) {3};
-  \node (4) at (2,0) {4};
-  \node[draw, rectangle] (7) at (4,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (2.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (4.00,0.00) {7};
   % Draw the cover relations
   \draw (7) -- (1);
   \draw (7) -- (2);
@@ -648,9 +648,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (3) at (0,0) {3};
-  \node[draw, rectangle] (4) at (2,0) {4};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (4) at (2.00,0.00) {4};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [5, 6, 7, 9]}
@@ -679,12 +679,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (4) at (0,0) {4};
-  \node[draw, rectangle] (8) at (2,0) {8};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (4) at (0.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (8) at (2.00,0.00) {8};
   % Draw the cover relations
   \draw (8) -- (2);
   \draw (8) -- (3);
@@ -693,8 +693,8 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=10.0]
-  \node[draw, rectangle] (4) at (0,0) {4};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (4) at (0.00,0.00) {4};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [5, 6, 7, 8]}
@@ -724,12 +724,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (4) at (6,-2) {4};
-  \node[draw, rectangle] (9) at (0,0) {9};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (4) at (6.00,-2.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (9) at (0.00,0.00) {9};
   % Draw the cover relations
   \draw (9) -- (1);
   \draw (9) -- (2);
@@ -765,12 +765,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (0,0) {3};
-  \node (5) at (2,0) {5};
-  \node[draw, rectangle] (6) at (4,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[minimum size=0.5cm] (5) at (2.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (4.00,0.00) {6};
   % Draw the cover relations
   \draw (6) -- (2);
   \draw (5) -- (1);
@@ -778,10 +778,10 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (1) at (0,-2) {1};
-  \node (3) at (0,0) {3};
-  \node[draw, rectangle] (5) at (2,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (2.00,0.00) {5};
   % Draw the cover relations
   \draw (5) -- (1);
 \end{tikzpicture}
@@ -812,12 +812,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-2) {1};
-  \node (3) at (2,-2) {3};
-  \node (2) at (0,0) {2};
-  \node (5) at (2,0) {5};
-  \node[draw, rectangle] (7) at (4,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (3) at (2.00,-2.00) {3};
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[minimum size=0.5cm] (5) at (2.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (4.00,0.00) {7};
   % Draw the cover relations
   \draw (7) -- (1);
   \draw (5) -- (1);
@@ -826,9 +826,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (2) at (0,0) {2};
-  \node[draw, rectangle] (5) at (2,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (2.00,0.00) {5};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [4, 6, 7]}
@@ -859,12 +859,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-4) {1};
-  \node (2) at (0,-2) {2};
-  \node (3) at (2,-2) {3};
-  \node (5) at (4,-2) {5};
-  \node[draw, rectangle] (9) at (0,0) {9};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (2.00,-2.00) {3};
+  \node[minimum size=0.5cm] (5) at (4.00,-2.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (9) at (0.00,0.00) {9};
   % Draw the cover relations
   \draw (9) -- (5);
   \draw (9) -- (2);
@@ -902,12 +902,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (6) at (0,0) {6};
-  \node[draw, rectangle] (7) at (2,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (6) at (0.00,0.00) {6};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (2.00,0.00) {7};
   % Draw the cover relations
   \draw (6) -- (1);
   \draw (6) -- (2);
@@ -917,9 +917,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (1) at (0,-2) {1};
-  \node[draw, rectangle] (6) at (0,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (0.00,0.00) {6};
   % Draw the cover relations
   \draw (6) -- (1);
 \end{tikzpicture}
@@ -951,12 +951,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-4) {1};
-  \node (2) at (0,-2) {2};
-  \node (4) at (2,-2) {4};
-  \node (5) at (0,0) {5};
-  \node[draw, rectangle] (7) at (2,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,-2.00) {2};
+  \node[minimum size=0.5cm] (4) at (2.00,-2.00) {4};
+  \node[minimum size=0.5cm] (5) at (0.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (2.00,0.00) {7};
   % Draw the cover relations
   \draw (7) -- (4);
   \draw (4) -- (1);
@@ -965,9 +965,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (2) at (0,-2) {2};
-  \node[draw, rectangle] (5) at (0,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (2) at (0.00,-2.00) {2};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (0.00,0.00) {5};
   % Draw the cover relations
   \draw (5) -- (2);
 \end{tikzpicture}
@@ -1000,12 +1000,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-2) {1};
-  \node (5) at (2,-2) {5};
-  \node (2) at (2,-4) {2};
-  \node (4) at (0,0) {4};
-  \node[draw, rectangle] (8) at (2,0) {8};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (5) at (2.00,-2.00) {5};
+  \node[minimum size=0.5cm] (2) at (2.00,-4.00) {2};
+  \node[minimum size=0.5cm] (4) at (0.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (8) at (2.00,0.00) {8};
   % Draw the cover relations
   \draw (5) -- (2);
   \draw (4) -- (1);
@@ -1015,8 +1015,8 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=10.0]
-  \node[draw, rectangle] (4) at (0,0) {4};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (4) at (0.00,0.00) {4};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [2, 11]}
@@ -1052,12 +1052,12 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,-8) {1};
-  \node (3) at (0,-6) {3};
-  \node (5) at (0,-4) {5};
-  \node (7) at (0,-2) {7};
-  \node[draw, rectangle] (9) at (0,0) {9};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-8.00) {1};
+  \node[minimum size=0.5cm] (3) at (0.00,-6.00) {3};
+  \node[minimum size=0.5cm] (5) at (0.00,-4.00) {5};
+  \node[minimum size=0.5cm] (7) at (0.00,-2.00) {7};
+  \node[draw, rectangle, minimum size=0.5cm] (9) at (0.00,0.00) {9};
   % Draw the cover relations
   \draw (3) -- (1);
   \draw (5) -- (3);
@@ -1093,23 +1093,23 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,0) {1};
-  \node (2) at (2,0) {2};
-  \node (3) at (4,0) {3};
-  \node (4) at (6,0) {4};
-  \node (5) at (8,0) {5};
-  \node[draw, rectangle] (6) at (10,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,0.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (6.00,0.00) {4};
+  \node[minimum size=0.5cm] (5) at (8.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (10.00,0.00) {6};
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.0]
-  \node (1) at (0,0) {1};
-  \node (2) at (2,0) {2};
-  \node (3) at (4,0) {3};
-  \node (4) at (6,0) {4};
-  \node[draw, rectangle] (5) at (8,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,0.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (6.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (8.00,0.00) {5};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [6, 8, 9, 10, 11, 13]}
@@ -1137,24 +1137,24 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (0,0) {2};
-  \node (3) at (2,0) {3};
-  \node (4) at (4,0) {4};
-  \node (5) at (6,0) {5};
-  \node[draw, rectangle] (7) at (8,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (2.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (4.00,0.00) {4};
+  \node[minimum size=0.5cm] (5) at (6.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (8.00,0.00) {7};
   % Draw the cover relations
   \draw (7) -- (1);
 \end{tikzpicture}
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (2) at (0,0) {2};
-  \node (3) at (2,0) {3};
-  \node (4) at (4,0) {4};
-  \node[draw, rectangle] (5) at (6,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[minimum size=0.5cm] (3) at (2.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (4.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (6.00,0.00) {5};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [6, 7, 9, 10, 11]}
@@ -1183,13 +1183,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (0,0) {3};
-  \node (4) at (2,0) {4};
-  \node (5) at (4,0) {5};
-  \node[draw, rectangle] (8) at (6,0) {8};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (2.00,0.00) {4};
+  \node[minimum size=0.5cm] (5) at (4.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (8) at (6.00,0.00) {8};
   % Draw the cover relations
   \draw (8) -- (2);
   \draw (8) -- (1);
@@ -1197,10 +1197,10 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (3) at (0,0) {3};
-  \node (4) at (2,0) {4};
-  \node[draw, rectangle] (5) at (4,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (2.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (4.00,0.00) {5};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [6, 7, 8, 10, 11]}
@@ -1230,13 +1230,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (4) at (0,0) {4};
-  \node (5) at (2,0) {5};
-  \node[draw, rectangle] (9) at (4,0) {9};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (4) at (0.00,0.00) {4};
+  \node[minimum size=0.5cm] (5) at (2.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (9) at (4.00,0.00) {9};
   % Draw the cover relations
   \draw (9) -- (1);
   \draw (9) -- (2);
@@ -1245,9 +1245,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (4) at (0,0) {4};
-  \node[draw, rectangle] (5) at (2,0) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (4) at (0.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (2.00,0.00) {5};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [6, 7, 8, 9, 11]}
@@ -1278,13 +1278,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (4) at (6,-2) {4};
-  \node (5) at (0,0) {5};
-  \node[draw, rectangle] (10) at (2,0) {10};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (4) at (6.00,-2.00) {4};
+  \node[minimum size=0.5cm] (5) at (0.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (10) at (2.00,0.00) {10};
   % Draw the cover relations
   \draw (10) -- (4);
   \draw (10) -- (1);
@@ -1294,8 +1294,8 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=10.0]
-  \node[draw, rectangle] (5) at (0,0) {5};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (0.00,0.00) {5};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [6, 7, 8, 9, 10]}
@@ -1327,13 +1327,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (4) at (6,-2) {4};
-  \node (5) at (8,-2) {5};
-  \node[draw, rectangle] (11) at (0,0) {11};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (4) at (6.00,-2.00) {4};
+  \node[minimum size=0.5cm] (5) at (8.00,-2.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (11) at (0.00,0.00) {11};
   % Draw the cover relations
   \draw (11) -- (1);
   \draw (11) -- (3);
@@ -1371,13 +1371,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (0,0) {3};
-  \node (4) at (2,0) {4};
-  \node (6) at (4,0) {6};
-  \node[draw, rectangle] (7) at (6,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (2.00,0.00) {4};
+  \node[minimum size=0.5cm] (6) at (4.00,0.00) {6};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (6.00,0.00) {7};
   % Draw the cover relations
   \draw (6) -- (1);
   \draw (7) -- (2);
@@ -1385,11 +1385,11 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,-2) {1};
-  \node (3) at (0,0) {3};
-  \node (4) at (2,0) {4};
-  \node[draw, rectangle] (6) at (4,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[minimum size=0.5cm] (4) at (2.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (4.00,0.00) {6};
   % Draw the cover relations
   \draw (6) -- (1);
 \end{tikzpicture}
@@ -1421,13 +1421,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (3) at (2,-2) {3};
-  \node (2) at (0,0) {2};
-  \node (4) at (2,0) {4};
-  \node (6) at (4,0) {6};
-  \node[draw, rectangle] (8) at (6,0) {8};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (3) at (2.00,-2.00) {3};
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[minimum size=0.5cm] (4) at (2.00,0.00) {4};
+  \node[minimum size=0.5cm] (6) at (4.00,0.00) {6};
+  \node[draw, rectangle, minimum size=0.5cm] (8) at (6.00,0.00) {8};
   % Draw the cover relations
   \draw (6) -- (1);
   \draw (8) -- (3);
@@ -1436,10 +1436,10 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (2) at (0,0) {2};
-  \node (4) at (2,0) {4};
-  \node[draw, rectangle] (6) at (4,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[minimum size=0.5cm] (4) at (2.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (4.00,0.00) {6};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [5, 7, 8, 11]}
@@ -1470,13 +1470,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (4) at (4,-2) {4};
-  \node (3) at (0,0) {3};
-  \node (6) at (2,0) {6};
-  \node[draw, rectangle] (9) at (4,0) {9};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (4) at (4.00,-2.00) {4};
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[minimum size=0.5cm] (6) at (2.00,0.00) {6};
+  \node[draw, rectangle, minimum size=0.5cm] (9) at (4.00,0.00) {9};
   % Draw the cover relations
   \draw (6) -- (1);
   \draw (9) -- (1);
@@ -1486,9 +1486,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (3) at (0,0) {3};
-  \node[draw, rectangle] (6) at (2,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (2.00,0.00) {6};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [5, 7, 8, 9]}
@@ -1521,13 +1521,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-4) {1};
-  \node (2) at (0,-2) {2};
-  \node (3) at (2,-2) {3};
-  \node (4) at (4,-2) {4};
-  \node (6) at (6,-2) {6};
-  \node[draw, rectangle] (11) at (0,0) {11};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (2.00,-2.00) {3};
+  \node[minimum size=0.5cm] (4) at (4.00,-2.00) {4};
+  \node[minimum size=0.5cm] (6) at (6.00,-2.00) {6};
+  \node[draw, rectangle, minimum size=0.5cm] (11) at (0.00,0.00) {11};
   % Draw the cover relations
   \draw (6) -- (1);
   \draw (11) -- (3);
@@ -1567,13 +1567,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (4) at (0,0) {4};
-  \node (7) at (2,0) {7};
-  \node[draw, rectangle] (8) at (4,0) {8};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (4) at (0.00,0.00) {4};
+  \node[minimum size=0.5cm] (7) at (2.00,0.00) {7};
+  \node[draw, rectangle, minimum size=0.5cm] (8) at (4.00,0.00) {8};
   % Draw the cover relations
   \draw (8) -- (2);
   \draw (8) -- (3);
@@ -1583,10 +1583,10 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (1) at (0,-2) {1};
-  \node (4) at (0,0) {4};
-  \node[draw, rectangle] (7) at (2,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (4) at (0.00,0.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (2.00,0.00) {7};
   % Draw the cover relations
   \draw (7) -- (1);
 \end{tikzpicture}
@@ -1620,13 +1620,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (4) at (6,-2) {4};
-  \node (7) at (0,0) {7};
-  \node[draw, rectangle] (9) at (2,0) {9};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (4) at (6.00,-2.00) {4};
+  \node[minimum size=0.5cm] (7) at (0.00,0.00) {7};
+  \node[draw, rectangle, minimum size=0.5cm] (9) at (2.00,0.00) {9};
   % Draw the cover relations
   \draw (7) -- (1);
   \draw (9) -- (3);
@@ -1637,9 +1637,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (2) at (0,-2) {2};
-  \node[draw, rectangle] (7) at (0,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (2) at (0.00,-2.00) {2};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (0.00,0.00) {7};
   % Draw the cover relations
   \draw (7) -- (2);
 \end{tikzpicture}
@@ -1674,13 +1674,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (4) at (6,-2) {4};
-  \node (8) at (0,0) {8};
-  \node[draw, rectangle] (9) at (2,0) {9};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (4) at (6.00,-2.00) {4};
+  \node[minimum size=0.5cm] (8) at (0.00,0.00) {8};
+  \node[draw, rectangle, minimum size=0.5cm] (9) at (2.00,0.00) {9};
   % Draw the cover relations
   \draw (9) -- (3);
   \draw (8) -- (1);
@@ -1692,9 +1692,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node[draw, rectangle] (8) at (0,0) {8};
-  \node (1) at (0,-2) {1};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (8) at (0.00,0.00) {8};
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
   % Draw the cover relations
   \draw (8) -- (1);
 \end{tikzpicture}
@@ -1726,13 +1726,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (3) at (4,-2) {3};
-  \node (5) at (0,0) {5};
-  \node (6) at (2,0) {6};
-  \node[draw, rectangle] (7) at (4,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-2.00) {3};
+  \node[minimum size=0.5cm] (5) at (0.00,0.00) {5};
+  \node[minimum size=0.5cm] (6) at (2.00,0.00) {6};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (4.00,0.00) {7};
   % Draw the cover relations
   \draw (6) -- (2);
   \draw (5) -- (1);
@@ -1741,11 +1741,11 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=2.5]
-  \node (1) at (0,-2) {1};
-  \node (2) at (2,-2) {2};
-  \node (5) at (0,0) {5};
-  \node[draw, rectangle] (6) at (2,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-2.00) {2};
+  \node[minimum size=0.5cm] (5) at (0.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (2.00,0.00) {6};
   % Draw the cover relations
   \draw (6) -- (2);
   \draw (5) -- (1);
@@ -1780,13 +1780,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-4) {1};
-  \node (2) at (0,-2) {2};
-  \node (5) at (2,-2) {5};
-  \node (3) at (0,0) {3};
-  \node (6) at (2,0) {6};
-  \node[draw, rectangle] (9) at (4,0) {9};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,-2.00) {2};
+  \node[minimum size=0.5cm] (5) at (2.00,-2.00) {5};
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[minimum size=0.5cm] (6) at (2.00,0.00) {6};
+  \node[draw, rectangle, minimum size=0.5cm] (9) at (4.00,0.00) {9};
   % Draw the cover relations
   \draw (9) -- (5);
   \draw (6) -- (2);
@@ -1796,9 +1796,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (3) at (0,0) {3};
-  \node[draw, rectangle] (6) at (2,0) {6};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (3) at (0.00,0.00) {3};
+  \node[draw, rectangle, minimum size=0.5cm] (6) at (2.00,0.00) {6};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [4, 7, 9]}
@@ -1831,13 +1831,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-2) {1};
-  \node (3) at (2,-2) {3};
-  \node (6) at (4,-2) {6};
-  \node (2) at (4,-4) {2};
-  \node (5) at (0,0) {5};
-  \node[draw, rectangle] (10) at (2,0) {10};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-2.00) {1};
+  \node[minimum size=0.5cm] (3) at (2.00,-2.00) {3};
+  \node[minimum size=0.5cm] (6) at (4.00,-2.00) {6};
+  \node[minimum size=0.5cm] (2) at (4.00,-4.00) {2};
+  \node[minimum size=0.5cm] (5) at (0.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (10) at (2.00,0.00) {10};
   % Draw the cover relations
   \draw (6) -- (2);
   \draw (10) -- (1);
@@ -1848,8 +1848,8 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=10.0]
-  \node[draw, rectangle] (5) at (0,0) {5};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (0.00,0.00) {5};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [4, 6, 11, 13]}
@@ -1882,13 +1882,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-4) {1};
-  \node (2) at (0,0) {2};
-  \node (7) at (2,0) {7};
-  \node[draw, rectangle] (9) at (4,0) {9};
-  \node (3) at (0,-2) {3};
-  \node (5) at (2,-2) {5};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[minimum size=0.5cm] (7) at (2.00,0.00) {7};
+  \node[draw, rectangle, minimum size=0.5cm] (9) at (4.00,0.00) {9};
+  \node[minimum size=0.5cm] (3) at (0.00,-2.00) {3};
+  \node[minimum size=0.5cm] (5) at (2.00,-2.00) {5};
   % Draw the cover relations
   \draw (7) -- (1);
   \draw (9) -- (3);
@@ -1899,9 +1899,9 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=5.0]
-  \node (2) at (0,0) {2};
-  \node[draw, rectangle] (7) at (2,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (2) at (0.00,0.00) {2};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (2.00,0.00) {7};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [4, 6, 9]}
@@ -1936,13 +1936,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-4) {1};
-  \node (3) at (2,-4) {3};
-  \node (2) at (0,-2) {2};
-  \node (5) at (2,-2) {5};
-  \node (7) at (4,-2) {7};
-  \node[draw, rectangle] (11) at (0,0) {11};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (3) at (2.00,-4.00) {3};
+  \node[minimum size=0.5cm] (2) at (0.00,-2.00) {2};
+  \node[minimum size=0.5cm] (5) at (2.00,-2.00) {5};
+  \node[minimum size=0.5cm] (7) at (4.00,-2.00) {7};
+  \node[draw, rectangle, minimum size=0.5cm] (11) at (0.00,0.00) {11};
   % Draw the cover relations
   \draw (11) -- (7);
   \draw (7) -- (1);
@@ -1988,13 +1988,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-4) {1};
-  \node (2) at (2,-4) {2};
-  \node (3) at (4,-4) {3};
-  \node (6) at (0,-2) {6};
-  \node (7) at (2,-2) {7};
-  \node[draw, rectangle] (11) at (0,0) {11};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-4.00) {2};
+  \node[minimum size=0.5cm] (3) at (4.00,-4.00) {3};
+  \node[minimum size=0.5cm] (6) at (0.00,-2.00) {6};
+  \node[minimum size=0.5cm] (7) at (2.00,-2.00) {7};
+  \node[draw, rectangle, minimum size=0.5cm] (11) at (0.00,0.00) {11};
   % Draw the cover relations
   \draw (11) -- (7);
   \draw (6) -- (2);
@@ -2037,13 +2037,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-4) {1};
-  \node (2) at (2,-4) {2};
-  \node (4) at (0,-2) {4};
-  \node (5) at (2,-2) {5};
-  \node (7) at (0,0) {7};
-  \node[draw, rectangle] (8) at (2,0) {8};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (2) at (2.00,-4.00) {2};
+  \node[minimum size=0.5cm] (4) at (0.00,-2.00) {4};
+  \node[minimum size=0.5cm] (5) at (2.00,-2.00) {5};
+  \node[minimum size=0.5cm] (7) at (0.00,0.00) {7};
+  \node[draw, rectangle, minimum size=0.5cm] (8) at (2.00,0.00) {8};
   % Draw the cover relations
   \draw (7) -- (4);
   \draw (4) -- (1);
@@ -2053,10 +2053,10 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=3.3333333333333335]
-  \node (1) at (0,-4) {1};
-  \node (4) at (0,-2) {4};
-  \node[draw, rectangle] (7) at (0,0) {7};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (4) at (0.00,-2.00) {4};
+  \node[draw, rectangle, minimum size=0.5cm] (7) at (0.00,0.00) {7};
   % Draw the cover relations
   \draw (7) -- (4);
   \draw (4) -- (1);
@@ -2094,13 +2094,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-6) {1};
-  \node (2) at (0,-2) {2};
-  \node (7) at (2,-2) {7};
-  \node (4) at (2,-4) {4};
-  \node (5) at (0,0) {5};
-  \node[draw, rectangle] (10) at (2,0) {10};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-6.00) {1};
+  \node[minimum size=0.5cm] (2) at (0.00,-2.00) {2};
+  \node[minimum size=0.5cm] (7) at (2.00,-2.00) {7};
+  \node[minimum size=0.5cm] (4) at (2.00,-4.00) {4};
+  \node[minimum size=0.5cm] (5) at (0.00,0.00) {5};
+  \node[draw, rectangle, minimum size=0.5cm] (10) at (2.00,0.00) {10};
   % Draw the cover relations
   \draw (7) -- (4);
   \draw (10) -- (7);
@@ -2111,8 +2111,8 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Void Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=10.0]
-  \node[draw, rectangle] (5) at (0,0) {5};
+\begin{tikzpicture}
+  \node[draw, rectangle, minimum size=0.5cm] (5) at (0.00,0.00) {5};
 \end{tikzpicture}
 \end{minipage}
 \newpage\subsection{MinGens: [3, 7]}
@@ -2149,13 +2149,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-4) {1};
-  \node (5) at (2,-4) {5};
-  \node (2) at (2,-6) {2};
-  \node (4) at (0,-2) {4};
-  \node (8) at (2,-2) {8};
-  \node[draw, rectangle] (11) at (0,0) {11};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-4.00) {1};
+  \node[minimum size=0.5cm] (5) at (2.00,-4.00) {5};
+  \node[minimum size=0.5cm] (2) at (2.00,-6.00) {2};
+  \node[minimum size=0.5cm] (4) at (0.00,-2.00) {4};
+  \node[minimum size=0.5cm] (8) at (2.00,-2.00) {8};
+  \node[draw, rectangle, minimum size=0.5cm] (11) at (0.00,0.00) {11};
   % Draw the cover relations
   \draw (8) -- (1);
   \draw (11) -- (4);
@@ -2207,13 +2207,13 @@ g & F & m & ewt & t & \(|M|\) & \(|\lambda|\) \\
 \end{minipage}
 \subsubsection*{Gap Poset}
 \begin{minipage}{0.48\textwidth}
-\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=1.6666666666666667]
-  \node (1) at (0,-10) {1};
-  \node (3) at (0,-8) {3};
-  \node (5) at (0,-6) {5};
-  \node (7) at (0,-4) {7};
-  \node (9) at (0,-2) {9};
-  \node[draw, rectangle] (11) at (0,0) {11};
+\begin{tikzpicture}
+  \node[minimum size=0.5cm] (1) at (0.00,-10.00) {1};
+  \node[minimum size=0.5cm] (3) at (0.00,-8.00) {3};
+  \node[minimum size=0.5cm] (5) at (0.00,-6.00) {5};
+  \node[minimum size=0.5cm] (7) at (0.00,-4.00) {7};
+  \node[minimum size=0.5cm] (9) at (0.00,-2.00) {9};
+  \node[draw, rectangle, minimum size=0.5cm] (11) at (0.00,0.00) {11};
   % Draw the cover relations
   \draw (3) -- (1);
   \draw (11) -- (9);

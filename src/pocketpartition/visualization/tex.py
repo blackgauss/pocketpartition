@@ -1,4 +1,4 @@
-from .tikz import generate_latex_table, generate_ferrers_tikz, generate_ferrers_ytableau, generate_hasse_tikz
+from .tikz import generate_latex_table, generate_ferrers_tikz, generate_hasse_tikz
 def generate_content_pages(label, subsections, data, partition, gap_poset, void_poset, max_width=10, max_height=10):
     latex_code = f"\\subsection{{MinGens: {label}}}\n"
     
@@ -15,12 +15,12 @@ def generate_content_pages(label, subsections, data, partition, gap_poset, void_
         elif subsection['title'] == 'Gap Poset':
             elements, relations = gap_poset
             latex_code += "\\begin{minipage}{0.48\\textwidth}\n"
-            latex_code += generate_hasse_tikz(elements, relations, max_width=max_width, max_height=max_height)
+            latex_code += generate_hasse_tikz(elements, relations)
             latex_code += "\\end{minipage}\n"
         elif subsection['title'] == 'Void Poset':
             elements, relations = void_poset
             latex_code += "\\begin{minipage}{0.48\\textwidth}\n"
-            latex_code += generate_hasse_tikz(elements, relations, max_width=max_width, max_height=max_height)
+            latex_code += generate_hasse_tikz(elements, relations)
             latex_code += "\\end{minipage}\n"
     
     return latex_code
