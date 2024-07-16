@@ -30,7 +30,7 @@ class NumericalSet:
         return self._frobenius_number
     
     def __str__(self):
-        return f"NumericalSet(genus={len(self.gaps)})"
+        return f"NumericalSet(gaps={sorted(self.gaps)})"
 
     def __repr__(self):
         return f"NumericalSet(genus={len(self.gaps)}, frobenius_number={self.frobenius_number})"

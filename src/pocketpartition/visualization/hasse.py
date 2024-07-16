@@ -82,6 +82,9 @@ def compute_layout(elements, relations):
 def generate_tikz(elements, relations):
     positions = compute_layout(elements, relations)
 
+    # Find the largest element
+    largest_element = max(elements)
+
     tikz_code = "\\documentclass{standalone}\n"
     tikz_code += "\\usepackage{tikz}\n"
     tikz_code += "\\begin{document}\n"
@@ -89,7 +92,10 @@ def generate_tikz(elements, relations):
 
     # Add nodes with positions
     for element, pos in positions.items():
-        tikz_code += f"  \\node ({element}) at ({pos[0]},{pos[1]}) {{{element}}};\n"
+        if element == largest_element:
+            tikz_code += f"  \\node[draw, rectangle] ({element}) at ({pos[0]},{pos[1]}) {{{element}}};\n"
+        else:
+            tikz_code += f"  \\node ({element}) at ({pos[0]},{pos[1]}) {{{element}}};\n"
 
     # Draw the cover relations
     tikz_code += "  % Draw the cover relations\n"

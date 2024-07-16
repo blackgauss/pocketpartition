@@ -40,7 +40,7 @@ class NumericalSemigroup(NumericalSet):
             if self.atom_monoid_gaps() != gaps:
                 raise ValueError("The provided gaps do not form a numerical semigroup because the atom monoid is not equal to the set itself.")
         
-        self._frobenius_number = max(gaps) if gaps else -1
+        self._frobenius_number = max(self._gaps)
 
     def __str__(self):
         return f"NumericalSemigroup(genus={len(self.gaps)})"
