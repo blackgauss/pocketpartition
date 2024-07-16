@@ -52,9 +52,30 @@ def compute_layout(elements, relations):
 
     # Calculate positions: x position based on the order within the rank, y position based on the rank
     positions = {}
+    child_count = defaultdict(int)
+    for parent, child in relations:
+        child_count[parent] += 1
+
     for level, nodes in levels.items():
         for index, node in enumerate(nodes):
-            positions[node] = (index * 2, -level * 2)
+            if level > 0:
+                # Align node directly below its parent if the parent has only one child
+                parent_x = None
+                for parent, child in relations:
+                    if child == node and rank[parent] == level - 1 and child_count[parent] == 1:
+                        if parent in positions:
+                            parent_x = positions[parent][0]
+                        break
+                if parent_x is not None:
+                    positions[node] = (parent_x, -level * 2)
+                else:
+                    # Use original positioning based on index
+                    x = 0 if index == 0 else positions[nodes[index - 1]][0] + 2
+                    positions[node] = (x, -level * 2)
+            else:
+                # Position root level nodes based on index
+                x = 0 if index == 0 else positions[nodes[index - 1]][0] + 2
+                positions[node] = (x, -level * 2)
 
     return positions
 
