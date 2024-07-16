@@ -25,7 +25,7 @@ Here's a simple example to get you started:
 
 .. code-block:: python
 
-    from pocketpartition import NumericalSet, NumericalSemigroup, get_atom_monoid
+    from pocketpartition import NumericalSet, NumericalSemigroup, get_atom_monoid, get_partition
 
     # Make a numerical set
     T = NumericalSet(gaps=[1,2,3,9,11,15])
