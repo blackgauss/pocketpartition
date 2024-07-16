@@ -40,7 +40,7 @@ Here's a simple example to get you started:
     P = get_partition(T)
 
     # Display Partition with hooks
-    print(P.display(show_hooks=True))
+    P.display(show_hooks=True)
 
     # Get help on all methods of a certain class
     help(S)
