@@ -1,3 +1,9 @@
+from .numerical_set import NumericalSet
+from .numerical_semigroup import NumericalSemigroup
+from .partition import Partition
+from .poset import Poset
+from typing import Union
+
 __all__ = ['get_atom_monoid', 'get_partition', 'get_gap_poset', 'get_void_poset']
 
 from .numerical_set import NumericalSet
