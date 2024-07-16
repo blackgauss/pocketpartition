@@ -151,10 +151,16 @@ class Partition:
     def is_semigroup(self):
         return self.atom_partition() == self.partition
     
-    def display(self):
+    def display(self, show_hooks=False):
         """
         Display the hook lengths of the partition in a Ferrers diagram format.
         """
-        hook_lengths = self.hook_lengths()
-        for row in hook_lengths:
-            print(' '.join(map(str, row)).ljust(max(map(len, hook_lengths))))
+        if show_hooks:
+            hook_lengths = self.hook_lengths()
+            for row in hook_lengths:
+                print(' '.join(map(str, row)).ljust(max(map(len, hook_lengths))))
+        else:
+            diagram = self._partition
+            for row in diagram:
+                print('# ' * row)
+ 

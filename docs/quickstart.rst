@@ -25,16 +25,25 @@ Here's a simple example to get you started:
 
 .. code-block:: python
 
-    from pocketpartition import NumericalSet, NumericalSemigroup, atom_monoid
+    from pocketpartition import NumericalSet, NumericalSemigroup, get_atom_monoid
 
-    # Make a Numerical Set
+    # Make a numerical set
     T = NumericalSet(gaps=[1,2,3,9,11,15])
     
-    # Get its Atom Monoid
-    S = atom_monoid(T)
+    # Get its atom monoid
+    S = get_atom_monoid(T)
 
     # Minimal Generating Set
     print(S.minimal_generating_set())
+
+    # Get its partition
+    P = get_partition(T)
+
+    # Display Partition with hooks
+    print(P.display(show_hooks=True))
+
+    # Get help on all methods of a certain class
+    help(S)
 
 More Information
 ----------------
