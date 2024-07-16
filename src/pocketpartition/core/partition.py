@@ -31,7 +31,9 @@ class Partition:
             raise ValueError("All elements of the partition must be positive integers.")
         
         if not all(partition[i] >= partition[i + 1] for i in range(len(partition) - 1)):
-            raise ValueError("Partition must be in non-increasing order.")
+            partition.reverse()
+            if not all(partition[i] >= partition[i + 1] for i in range(len(partition) - 1)):
+                raise ValueError("Partition must be in non-increasing order or its reverse must be in non-increasing order.")
         
         self._partition = partition
 
@@ -148,3 +150,11 @@ class Partition:
 
     def is_semigroup(self):
         return self.atom_partition() == self.partition
+    
+    def display(self):
+        """
+        Display the hook lengths of the partition in a Ferrers diagram format.
+        """
+        hook_lengths = self.hook_lengths()
+        for row in hook_lengths:
+            print(' '.join(map(str, row)).ljust(max(map(len, hook_lengths))))
