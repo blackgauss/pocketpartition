@@ -79,7 +79,7 @@ def compute_layout(elements, relations):
 
     return positions
 
-def generate_hasse_tikz(elements, relations):
+def generate_hasse_tikz(elements, relations, max_width=10, max_height=10):
     if not elements:
         return ""
 
@@ -87,8 +87,8 @@ def generate_hasse_tikz(elements, relations):
 
     # Find the largest element
     largest_element = max(elements)
-    tikz_code = ''
-    tikz_code += "\\begin{tikzpicture}[scale=1, transform shape]\n"
+    scale_factor = min(max_width / max(1, len(positions)), max_height / max(1, len(positions)))
+    tikz_code = "\\begin{tikzpicture}[scale=1, transform shape, every node/.style={scale=0.5}, scale=" + str(scale_factor) + "]\n"
 
     # Add nodes with positions
     for element, pos in positions.items():
@@ -107,17 +107,18 @@ def generate_hasse_tikz(elements, relations):
 
     return tikz_code
 
-def generate_ferrers_tikz(hook_lengths, display_hooks=False):
-    tikz_code = ''
-    tikz_code += "\\begin{tikzpicture}[scale=0.5]\n"
+def generate_ferrers_tikz(hook_lengths, display_hooks=False, box_size=0.2):
+    tikz_code = "\\begin{tikzpicture}\n"
     
     for i, row in enumerate(hook_lengths):
         for j, hook in enumerate(row):
+            x1, y1 = j * box_size, -i * box_size
+            x2, y2 = (j + 1) * box_size, -(i + 1) * box_size
+            tikz_code += f"  \\draw ({x1:.2f}, {y1:.2f}) rectangle ({x2:.2f}, {y2:.2f});\n"
             if display_hooks:
-                tikz_code += f"  \\node[draw, minimum size=0.5cm, anchor=center] at ({j}, {-i}) {{{hook}}};\n"
-            else:
-                tikz_code += f"  \\node[draw, minimum size=0.5cm, anchor=center] at ({j}, {-i}) {{}};\n"
-
+                mid_x, mid_y = (x1 + x2) / 2, (y1 + y2) / 2
+                tikz_code += f"  \\node[font=\\tiny] at ({mid_x:.2f}, {mid_y:.2f}) {{{hook}}};\n"
+    
     tikz_code += "\\end{tikzpicture}\n"
     
     return tikz_code
