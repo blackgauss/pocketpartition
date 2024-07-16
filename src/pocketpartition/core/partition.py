@@ -44,7 +44,7 @@ class Partition:
     def partition(self):
         return self._partition
 
-    def conjugate(self):
+    def conjugate_list(self):
         """
         Compute the conjugate partition of the partition.
 
@@ -52,6 +52,15 @@ class Partition:
         list of int: The conjugate partition of the partition.
         """
         return [sum(1 for p in self.partition if p > i) for i in range(max(self.partition))]
+    
+    def conjugate(self):
+        """
+        Compute the conjugate partition of the partition.
+
+        Returns:
+        Partition: The conjugate partition of the partition.
+        """
+        return Partition(self.conjugate_list())
     
     @lru_cache(None)
     def hook_lengths(self):
@@ -61,7 +70,7 @@ class Partition:
         list of int: A list of hook lengths for each cell in the partition.
         """
         p = self.partition
-        conj = self.conjugate()
+        conj = self.conjugate_list()
         return [[p[i]-(i+1)+conj[j]-(j+1)+1 for j in range(p[i])] for i in range(len(p))]
     
     def profile(self):
