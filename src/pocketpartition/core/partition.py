@@ -2,7 +2,6 @@ __all__ = ['Partition']  # Specify the items to be exported
 from ..utils.helpers import flatten_list
 from functools import lru_cache
 
-
 class Partition:
     _instances: dict = {}
 

@@ -4,6 +4,7 @@ from .numerical_set import NumericalSet
 from collections import Counter
 from ..utils.helpers import remove_sum_of_two_elements
 from functools import lru_cache
+from math import ceil
 
 class NumericalSemigroup(NumericalSet):
     _instances = {}
@@ -42,11 +43,15 @@ class NumericalSemigroup(NumericalSet):
         
         self._frobenius_number = max(self._gaps) if self._gaps else -1
 
+    @property
+    def genus(self):
+        return len(self.gaps)
+    
     def __str__(self):
-        return f"NumericalSemigroup(genus={len(self.gaps)})"
+        return f"NumericalSemigroup(genus={self.genus})"
 
     def __repr__(self):
-        return f"NumericalSemigroup(genus={len(self.gaps)}, frobenius_number={self.frobenius_number})"
+        return f"NumericalSemigroup(genus={self.genus}, frobenius_number={self.frobenius_number})"
 
     @staticmethod
     def _compute_gaps_from_generators(generators):
@@ -75,7 +80,6 @@ class NumericalSemigroup(NumericalSet):
         # Identify the gaps, excluding 0
         gaps = set(range(1, bound)) - semigroup
         return gaps
-    
 
     @lru_cache(maxsize=None)
     def apery_set(self, n):
@@ -241,6 +245,9 @@ class NumericalSemigroup(NumericalSet):
     
     def type(self):
         return len(self.pseudofrobenius_numbers())
+    
+    def depth(self):
+        return ceil((self.frobenius_number + 1)/self.multiplicity())
 
     def remove_minimal_generator(self, n):
         """
