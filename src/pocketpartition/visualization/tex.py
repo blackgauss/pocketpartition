@@ -1,6 +1,6 @@
 from .tikz import generate_latex_table, generate_ferrers_tikz, generate_hasse_tikz
 def generate_content_pages(label, subsections, data, partition, gap_poset, void_poset):
-    latex_code = f"\\subsection{{MinGens: {label}}}\n"
+    latex_code = f"\\subsection{{{label}}}\n"
 
     # Top row: Invariants table and Partition diagram
     latex_code += "\\noindent\\begin{minipage}{0.6\\textwidth}\n"
@@ -31,6 +31,21 @@ def generate_content_pages(label, subsections, data, partition, gap_poset, void_
     elements, relations = void_poset
     latex_code += generate_hasse_tikz(elements, relations, node_size=0.3, vertical_spacing=0.8, horizontal_spacing=0.8)
     latex_code += "\\end{minipage}\n"
+
+    return latex_code
+
+def generate_partition_page(label, partition, size=0.4, hooks=True):
+    # Start the document
+    latex_code = ""
+
+    latex_code += f"\\section*{{{label}}}\n"
+
+    # Center the partition diagram on the page
+    latex_code += "\\vfill\n"  # Add vertical space to push the diagram to the center
+    latex_code += "\\begin{center}\n"
+    latex_code += generate_ferrers_tikz(partition, display_hooks=hooks, box_size=size)
+    latex_code += "\\end{center}\n"
+    latex_code += "\\vfill\n"  # Add vertical space to balance the page
 
     return latex_code
 
