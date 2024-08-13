@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='pocketpartition',
-    version='1.1.1-alpha',
+    version='1.1.2-alpha',
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     url='https://github.com/blackgauss/pocketpartition',
