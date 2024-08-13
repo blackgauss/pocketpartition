@@ -229,12 +229,13 @@ class NumericalSemigroup(NumericalSet):
     @lru_cache(maxsize=None)
     def apery_weight(self):
             """
-            Calculates the effective weight of the numerical partition.
+            Calculates the Apery weight of the numerical partition.
 
-            The effective weight is the sum of the number of boxes above each minimal generating set element.
+            The effective weight is the sum of the number of boxes above each Apery set element. 
+            We look use m instead of 0 for the weight about 0 residue class.
 
             Returns:
-                int: The effective weight of the numerical partition.
+                int: The apery weight of the numerical partition.
             """
             m = self.multiplicity()
             gaps = self.gaps.copy()
@@ -245,6 +246,7 @@ class NumericalSemigroup(NumericalSet):
                         above.append(gap - s)
                 return len(above)
             apery_set = self.apery_set(m)
+            apery_set = {m} | (apery_set - {0})
             awt = 0
             for gen in apery_set:
                 awt += boxes_above(gen)
