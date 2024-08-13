@@ -240,8 +240,9 @@ class NumericalSemigroup(NumericalSet):
             m = self.multiplicity()
             gaps = self.gaps.copy()
             def boxes_above(s):
-                if s > max(gaps):
-                    return 0
+                if gaps:
+                    if s > max(gaps):
+                        return 0
                 above = []
                 for gap in gaps:
                     if gap > s:
