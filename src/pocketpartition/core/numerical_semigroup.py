@@ -226,6 +226,30 @@ class NumericalSemigroup(NumericalSet):
                 ewt += boxes_above(gen)
             return ewt
     
+    @lru_cache(maxsize=None)
+    def apery_weight(self):
+            """
+            Calculates the effective weight of the numerical partition.
+
+            The effective weight is the sum of the number of boxes above each minimal generating set element.
+
+            Returns:
+                int: The effective weight of the numerical partition.
+            """
+            m = self.multiplicity()
+            gaps = self.gaps.copy()
+            def boxes_above(s):
+                above = []
+                for gap in gaps:
+                    if gap > s:
+                        above.append(gap - s)
+                return len(above)
+            apery_set = self.apery_set(m)
+            awt = 0
+            for gen in apery_set:
+                awt += boxes_above(gen)
+            return awt
+    
     def pseudofrobenius_numbers(self):
             """
             Calculates the pseudofrobenius numbers
