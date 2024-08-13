@@ -1,3 +1,5 @@
+__all__ = ['WithGenus', 'WithMaxGenus']
+
 from collections import deque
 from ..core.numerical_semigroup import NumericalSemigroup
 

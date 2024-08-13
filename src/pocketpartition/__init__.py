@@ -11,6 +11,10 @@ from .core.kunz import (
 )
 from .core.partition import Partition
 from .core.random_numerical import RandomNumericalSemigroupWithGenus
+from .core.genus import (
+    WithGenus,
+    WithMaxGenus
+)
 
 __all__ = [
     'NumericalSet',
@@ -21,5 +25,7 @@ __all__ = [
     'get_partition',
     'get_gap_poset',
     'get_void_poset',
-    'kunz_tuple'
+    'kunz_tuple',
+    'WithGenus',
+    'WithMaxGenus'
 ]
