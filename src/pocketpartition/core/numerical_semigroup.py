@@ -246,9 +246,9 @@ class NumericalSemigroup(NumericalSet):
                         above.append(gap - s)
                 return len(above)
             apery_set = self.apery_set(m)
-            apery_set = {m} | (apery_set - {0})
+            apery_set_adjust = {m} | (apery_set - {0})
             awt = 0
-            for gen in apery_set:
+            for gen in apery_set_adjust:
                 awt += boxes_above(gen)
             return awt
     
