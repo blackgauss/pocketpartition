@@ -21,22 +21,26 @@ class KunzPolyhedron:
         self.corner = tuple([i/m for i in range(m)])
 
     def is_point(self, p: tuple[int]) -> bool:
-        # Check if all elements in p are non-negative
+        # p has length m-1, representing c_1 ... c_{m-1} (1-indexed residues).
+        # p[k] corresponds to c_{k+1}.
+        # Kunz polyhedron inequalities for all 1 <= i <= j <= m-1:
+        #   i+j < m  =>  c_i + c_j >= c_{i+j}
+        #   i+j > m  =>  c_i + c_j + 1 >= c_{i+j-m}
+        #   i+j == m =>  c_i + c_j + 1 >= 1  (always true for non-negative coords)
         if any(x < 0 for x in p):
-            return False 
-        valid_point = True
-        # Iterate over all pairs (i, j) where i <= j
-        for i in range(len(p)):
-            for j in range(i, len(p)):
-                # Check conditions based on i + j
-                if i + j < self.m:
-                    if p[i] + p[j] >= p[i + j]:
-                        valid_point = valid_point and True
-                    else:
+            return False
+        m = self.m
+        # residues are 1-indexed; i and j run from 1 to m-1
+        for i in range(1, m):
+            for j in range(i, m):
+                ci = p[i - 1]
+                cj = p[j - 1]
+                s = i + j
+                if s < m:
+                    if ci + cj < p[s - 1]:
                         return False
-                elif i + j >= self.m:
-                    if p[i] + p[j] + 1 >= p[i + j - self.m]:
-                        valid_point = valid_point and True
-                    else:
-                        return False        
-        return valid_point
+                elif s > m:
+                    if ci + cj + 1 < p[s - m - 1]:
+                        return False
+                # s == m: ci + cj + 1 >= 1 is always satisfied for non-negative values
+        return True
