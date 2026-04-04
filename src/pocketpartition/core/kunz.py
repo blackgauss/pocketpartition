@@ -1,4 +1,4 @@
-__all__ = ['kunz_tuple', 'KunzVector', 'FourierKunzVector', 'KunzPolyhedron']
+__all__ = ['kunz_tuple', 'KunzVector', 'FourierKunzVector', 'KunzPolyhedron', 'kunz_distance']
 
 import math
 from .numerical_semigroup import NumericalSemigroup
@@ -252,6 +252,42 @@ class FourierKunzVector:
         )
         return total.real
 
+    # --- L2 distance ---
+
+    def distance(self, other: "FourierKunzVector") -> float:
+        """
+        Compute the L² distance between this FourierKunzVector and another.
+
+        Both functions are step functions on [0, 1).  The L² norm is computed
+        on a common evaluation grid of size lcm(m_self, m_other), which is
+        the finest grid on which both functions are simultaneously constant.
+
+        .. math::
+
+            d(f, g) = \\left( \\int_0^1 |f(x) - g(x)|^2 \\, dx \\right)^{1/2}
+                    = \\left( \\frac{1}{N} \\sum_{k=0}^{N-1}
+                      \\bigl(f(k/N) - g(k/N)\\bigr)^2 \\right)^{1/2}
+
+        where  N = lcm(m_self, m_other).
+
+        Parameters
+        ----------
+        other : FourierKunzVector
+
+        Returns
+        -------
+        float
+            The L² distance ≥ 0.
+        """
+        if not isinstance(other, FourierKunzVector):
+            raise TypeError("other must be a FourierKunzVector.")
+        N = math.lcm(self._m, other._m)
+        total = sum(
+            (self(k / N) - other(k / N)) ** 2
+            for k in range(N)
+        )
+        return math.sqrt(total / N)
+
     # --- display ---
 
     def __repr__(self) -> str:
@@ -259,6 +295,58 @@ class FourierKunzVector:
         return (f"FourierKunzVector(m={self._m}, "
                 f"grid_values=({pts}))")
 
+
+# ---------------------------------------------------------------------------
+# Module-level convenience function
+# ---------------------------------------------------------------------------
+
+def kunz_distance(
+    S: "NumericalSemigroup | KunzVector | FourierKunzVector",
+    T: "NumericalSemigroup | KunzVector | FourierKunzVector",
+) -> float:
+    """
+    Compute the L² distance between two numerical semigroups (or already-built
+    Kunz / FourierKunz vectors) using their normalised Kunz step functions.
+
+    Parameters
+    ----------
+    S, T : NumericalSemigroup | KunzVector | FourierKunzVector
+        The two objects to compare.  NumericalSemigroup and KunzVector inputs
+        are automatically converted to FourierKunzVector.
+
+    Returns
+    -------
+    float
+        d(f_S, f_T) ≥ 0, where equality holds iff the two normalised Kunz
+        step functions are identical.
+
+    Examples
+    --------
+    >>> from pocketpartition import NumericalSemigroup
+    >>> from pocketpartition.core.kunz import kunz_distance
+    >>> S = NumericalSemigroup(generators=[3, 4, 5])
+    >>> T = NumericalSemigroup(generators=[3, 5])
+    >>> kunz_distance(S, T)       # doctest: +ELLIPSIS
+    0.816...
+    """
+    def _to_fkv(obj):
+        if isinstance(obj, FourierKunzVector):
+            return obj
+        if isinstance(obj, KunzVector):
+            return FourierKunzVector(obj)
+        if isinstance(obj, NumericalSemigroup):
+            return FourierKunzVector(obj)
+        raise TypeError(
+            f"Expected NumericalSemigroup, KunzVector, or FourierKunzVector, "
+            f"got {type(obj).__name__}."
+        )
+
+    return _to_fkv(S).distance(_to_fkv(T))
+
+
+# ---------------------------------------------------------------------------
+# KunzPolyhedron
+# ---------------------------------------------------------------------------
 
 class KunzPolyhedron:
     def __init__(self, m: int):

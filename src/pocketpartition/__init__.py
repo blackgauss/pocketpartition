@@ -11,6 +11,7 @@ from .core.kunz import (
     KunzVector,
     FourierKunzVector,
     KunzPolyhedron,
+    kunz_distance,
 )
 from .core.partition import Partition
 from .core.random_numerical import RandomNumericalSemigroupWithGenus
@@ -32,6 +33,7 @@ __all__ = [
     'KunzVector',
     'FourierKunzVector',
     'KunzPolyhedron',
+    'kunz_distance',
     'WithGenus',
     'WithMaxGenus'
 ]

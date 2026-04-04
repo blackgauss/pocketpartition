@@ -1,7 +1,7 @@
 import pytest
 import math
 from pocketpartition.core.numerical_semigroup import NumericalSemigroup
-from pocketpartition.core.kunz import kunz_tuple, KunzVector, FourierKunzVector, KunzPolyhedron
+from pocketpartition.core.kunz import kunz_tuple, KunzVector, FourierKunzVector, KunzPolyhedron, kunz_distance
 
 
 # ---------------------------------------------------------------------------
@@ -370,3 +370,106 @@ class TestFourierKunzVector:
         r = repr(fkv)
         assert "FourierKunzVector" in r
         assert "m=3" in r
+
+
+# ---------------------------------------------------------------------------
+# FourierKunzVector.distance  &  kunz_distance
+# ---------------------------------------------------------------------------
+
+class TestKunzDistance:
+
+    def _fkv(self, *gens):
+        return FourierKunzVector(S(*gens))
+
+    # --- identity ---
+
+    def test_distance_self_is_zero(self):
+        fkv = self._fkv(3, 4, 5)
+        assert math.isclose(fkv.distance(fkv), 0.0, abs_tol=1e-12)
+
+    def test_distance_identical_semigroups_is_zero(self):
+        # Two independently created FKVs for the same semigroup
+        f1 = self._fkv(3, 4, 5)
+        f2 = self._fkv(3, 4, 5)
+        assert math.isclose(f1.distance(f2), 0.0, abs_tol=1e-12)
+
+    # --- symmetry ---
+
+    def test_distance_is_symmetric(self):
+        f1 = self._fkv(3, 4, 5)
+        f2 = self._fkv(3, 5)
+        assert math.isclose(f1.distance(f2), f2.distance(f1), rel_tol=1e-9)
+
+    # --- non-negativity ---
+
+    def test_distance_is_nonnegative(self):
+        pairs = [
+            ((3, 4, 5), (3, 5)),
+            ((4, 5, 6, 7), (4, 6, 7)),
+            ((2, 3), (3, 4, 5)),
+        ]
+        for g1, g2 in pairs:
+            d = self._fkv(*g1).distance(self._fkv(*g2))
+            assert d >= 0.0, f"Negative distance for {g1} vs {g2}: {d}"
+
+    # --- different multiplicities (uses lcm grid) ---
+
+    def test_distance_different_multiplicities(self):
+        # m=2 vs m=3: lcm=6, should compute without error
+        f1 = self._fkv(2, 3)
+        f2 = self._fkv(3, 4, 5)
+        d = f1.distance(f2)
+        assert d >= 0.0
+
+    def test_distance_triangle_inequality(self):
+        f1 = self._fkv(3, 4, 5)
+        f2 = self._fkv(3, 5)
+        f3 = self._fkv(4, 5, 6, 7)
+        d12 = f1.distance(f2)
+        d23 = f2.distance(f3)
+        d13 = f1.distance(f3)
+        assert d13 <= d12 + d23 + 1e-12, (
+            f"Triangle inequality failed: {d13} > {d12} + {d23}"
+        )
+
+    # --- type error ---
+
+    def test_distance_rejects_bad_type(self):
+        fkv = self._fkv(3, 4, 5)
+        with pytest.raises(TypeError):
+            fkv.distance((1, 2, 3))
+
+    # --- kunz_distance convenience function ---
+
+    def test_kunz_distance_from_semigroups(self):
+        s1 = S(3, 4, 5)
+        s2 = S(3, 5)
+        d = kunz_distance(s1, s2)
+        assert d >= 0.0
+
+    def test_kunz_distance_matches_method(self):
+        s1 = S(3, 4, 5)
+        s2 = S(3, 5)
+        d_func = kunz_distance(s1, s2)
+        d_method = self._fkv(3, 4, 5).distance(self._fkv(3, 5))
+        assert math.isclose(d_func, d_method, rel_tol=1e-12)
+
+    def test_kunz_distance_from_kunz_vectors(self):
+        kv1 = KunzVector(S(3, 4, 5))
+        kv2 = KunzVector(S(3, 5))
+        d = kunz_distance(kv1, kv2)
+        assert d >= 0.0
+
+    def test_kunz_distance_from_fourier_vectors(self):
+        f1 = self._fkv(3, 4, 5)
+        f2 = self._fkv(3, 5)
+        d = kunz_distance(f1, f2)
+        assert math.isclose(d, f1.distance(f2), rel_tol=1e-12)
+
+    def test_kunz_distance_same_semigroup_is_zero(self):
+        s = S(4, 6, 7)
+        assert math.isclose(kunz_distance(s, s), 0.0, abs_tol=1e-12)
+
+    def test_kunz_distance_rejects_bad_type(self):
+        with pytest.raises(TypeError):
+            kunz_distance(S(3, 4, 5), [1, 2, 3])
