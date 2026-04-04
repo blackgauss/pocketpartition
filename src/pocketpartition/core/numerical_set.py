@@ -1,5 +1,7 @@
 __all__ = ['NumericalSet']  # Specify the items to be exported
 
+from functools import cached_property
+
 class NumericalSet:
     _instances: dict = {}
 
@@ -106,6 +108,14 @@ class NumericalSet:
                 small_elements.append(s)
         return small_elements
     
+    @cached_property
+    def _multiplicity(self):
+        small = self.small_elements()
+        if not small:
+            return 1
+        nonzero = [e for e in small if e != 0]
+        return min(nonzero) if nonzero else self.frobenius_number + 1
+
     def multiplicity(self):
         """
         Compute the multiplicity of the numerical semigroup.
@@ -113,8 +123,4 @@ class NumericalSet:
         Returns:
         int: The multiplicity of the numerical semigroup.
         """
-        small_elements = self.small_elements()
-        if not small_elements:
-            return 1
-        nonzero = [element for element in small_elements if element !=0]
-        return min(nonzero) if nonzero else self.frobenius_number + 1
+        return self._multiplicity
