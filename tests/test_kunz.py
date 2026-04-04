@@ -1,6 +1,7 @@
 import pytest
+import math
 from pocketpartition.core.numerical_semigroup import NumericalSemigroup
-from pocketpartition.core.kunz import kunz_tuple, KunzPolyhedron
+from pocketpartition.core.kunz import kunz_tuple, KunzVector, FourierKunzVector, KunzPolyhedron
 
 
 # ---------------------------------------------------------------------------
@@ -175,3 +176,197 @@ class TestKunzPolyhedron:
                 f"Round-trip failed: semigroup <{', '.join(map(str,gens))}> "
                 f"gave kunz tuple {kt} which KunzPolyhedron({m}).is_point rejected"
             )
+
+
+# ---------------------------------------------------------------------------
+# KunzVector
+# ---------------------------------------------------------------------------
+
+class TestKunzVector:
+
+    def test_is_tuple_subclass(self):
+        kv = KunzVector(S(3, 4, 5))
+        assert isinstance(kv, tuple)
+
+    def test_coords_match_kunz_tuple(self):
+        for gens in [(2, 3), (3, 4, 5), (3, 5), (4, 6, 7)]:
+            ns = S(*gens)
+            kv = KunzVector(ns)
+            assert tuple(kv) == kunz_tuple(ns)
+
+    def test_semigroup_property(self):
+        ns = S(3, 4, 5)
+        kv = KunzVector(ns)
+        assert kv.semigroup is ns
+
+    def test_multiplicity_property(self):
+        ns = S(4, 5, 6, 7)
+        kv = KunzVector(ns)
+        assert kv.multiplicity == 4
+
+    def test_genus_property(self):
+        ns = S(3, 5)
+        kv = KunzVector(ns)
+        assert kv.genus == ns.genus
+
+    def test_frobenius_property(self):
+        ns = S(3, 5)
+        kv = KunzVector(ns)
+        assert kv.frobenius_number == ns.frobenius_number
+
+    def test_coord_1indexed(self):
+        # <3,4,5>: kunz tuple (1,1), so coord(1)=1, coord(2)=1
+        ns = S(3, 4, 5)
+        kv = KunzVector(ns)
+        assert kv.coord(1) == kv[0]
+        assert kv.coord(2) == kv[1]
+
+    def test_coord_out_of_range(self):
+        kv = KunzVector(S(3, 4, 5))
+        with pytest.raises(IndexError):
+            kv.coord(0)
+        with pytest.raises(IndexError):
+            kv.coord(3)   # m-1 = 2 is the max valid index
+
+    def test_repr_contains_multiplicity(self):
+        kv = KunzVector(S(3, 4, 5))
+        assert "m=3" in repr(kv)
+
+    def test_construct_from_semigroup_with_generators(self):
+        kv = KunzVector(NumericalSemigroup(generators=[5, 6, 7, 8, 9]))
+        assert len(kv) == 4   # m=5, length=4
+
+    def test_immutable(self):
+        kv = KunzVector(S(3, 4, 5))
+        with pytest.raises((TypeError, AttributeError)):
+            kv[0] = 99
+
+
+# ---------------------------------------------------------------------------
+# FourierKunzVector
+# ---------------------------------------------------------------------------
+
+class TestFourierKunzVector:
+
+    def _fkv(self, *gens):
+        return FourierKunzVector(S(*gens))
+
+    # --- construction ---
+
+    def test_construct_from_semigroup(self):
+        fkv = FourierKunzVector(S(3, 4, 5))
+        assert isinstance(fkv, FourierKunzVector)
+
+    def test_construct_from_kunz_vector(self):
+        kv = KunzVector(S(3, 4, 5))
+        fkv = FourierKunzVector(kv)
+        assert isinstance(fkv, FourierKunzVector)
+
+    def test_construct_rejects_bad_type(self):
+        with pytest.raises(TypeError):
+            FourierKunzVector((1, 2, 3))
+
+    # --- grid ---
+
+    def test_grid_points_length(self):
+        fkv = self._fkv(3, 4, 5)
+        assert len(fkv.grid_points) == fkv.multiplicity
+
+    def test_grid_points_values(self):
+        fkv = self._fkv(4, 5, 6, 7)   # m=4
+        expected = (0.0, 0.25, 0.5, 0.75)
+        for a, b in zip(fkv.grid_points, expected):
+            assert math.isclose(a, b)
+
+    def test_grid_values_length(self):
+        fkv = self._fkv(3, 4, 5)
+        assert len(fkv.grid_values) == fkv.multiplicity
+
+    def test_grid_values_first_is_zero(self):
+        # f(0) = 0 by convention (residue-0 class)
+        fkv = self._fkv(3, 5)
+        assert fkv.grid_values[0] == 0.0
+
+    def test_grid_values_max_is_one(self):
+        # After normalisation, max value must be 1.0
+        for gens in [(2, 3), (3, 4, 5), (3, 5), (4, 6, 7)]:
+            fkv = FourierKunzVector(S(*gens))
+            assert math.isclose(max(fkv.grid_values), 1.0), (
+                f"max grid value != 1.0 for <{gens}>: {fkv.grid_values}"
+            )
+
+    def test_grid_values_all_in_unit_interval(self):
+        fkv = self._fkv(5, 6, 7, 8, 9)
+        assert all(0.0 <= v <= 1.0 for v in fkv.grid_values)
+
+    # --- evaluation ---
+
+    def test_call_at_zero(self):
+        fkv = self._fkv(3, 4, 5)
+        assert fkv(0.0) == 0.0
+
+    def test_call_at_grid_point(self):
+        fkv = self._fkv(3, 4, 5)   # m=3, grid_values=(0, v1, v2)
+        # x = 1/3 falls in bin 1 -> grid_values[1]
+        assert math.isclose(fkv(1 / 3), fkv.grid_values[1])
+
+    def test_call_periodicity(self):
+        fkv = self._fkv(3, 4, 5)
+        assert math.isclose(fkv(0.0), fkv(1.0))
+        assert math.isclose(fkv(0.5), fkv(1.5))
+
+    def test_call_and_evaluate_equivalent(self):
+        fkv = self._fkv(4, 5, 6, 7)
+        for x in [0.0, 0.1, 0.25, 0.5, 0.7, 0.99]:
+            assert fkv(x) == fkv.evaluate(x)
+
+    def test_step_function_constant_within_bin(self):
+        fkv = self._fkv(4, 5, 6, 7)   # m=4, bin width = 0.25
+        # All x in [0.25, 0.5) should give grid_values[1]
+        expected = fkv.grid_values[1]
+        for x in [0.25, 0.30, 0.40, 0.4999]:
+            assert math.isclose(fkv(x), expected), f"f({x}) != {expected}"
+
+    # --- Fourier coefficients ---
+
+    def test_fourier_coeff_0_is_mean(self):
+        # c_0 = (1/m) * sum of grid values = mean of grid values
+        fkv = self._fkv(3, 4, 5)
+        c0 = fkv.fourier_coefficient(0)
+        mean = sum(fkv.grid_values) / fkv.multiplicity
+        assert math.isclose(c0.real, mean, rel_tol=1e-9)
+        assert math.isclose(c0.imag, 0.0, abs_tol=1e-12)
+
+    def test_fourier_coefficients_dict_keys(self):
+        fkv = self._fkv(3, 4, 5)
+        coeffs = fkv.fourier_coefficients(3)
+        assert set(coeffs.keys()) == {-3, -2, -1, 0, 1, 2, 3}
+
+    def test_fourier_coefficients_conjugate_symmetry(self):
+        # f is real so c_{-n} = conj(c_n)
+        fkv = self._fkv(4, 6, 7)
+        for n in range(1, 5):
+            cn = fkv.fourier_coefficient(n)
+            c_neg = fkv.fourier_coefficient(-n)
+            assert math.isclose(cn.real, c_neg.real, abs_tol=1e-12)
+            assert math.isclose(cn.imag, -c_neg.imag, abs_tol=1e-12)
+
+    def test_partial_sum_converges_to_mean_at_zero_modes(self):
+        # With n_max=0, partial sum == c_0 everywhere
+        fkv = self._fkv(3, 4, 5)
+        c0 = fkv.fourier_coefficient(0).real
+        for x in [0.0, 0.33, 0.66, 0.99]:
+            assert math.isclose(fkv.partial_sum(x, 0), c0, rel_tol=1e-9)
+
+    def test_partial_sum_real(self):
+        # partial_sum should always return a real float
+        fkv = self._fkv(5, 6, 7, 8, 9)
+        for x in [0.1, 0.4, 0.7]:
+            val = fkv.partial_sum(x, 5)
+            assert isinstance(val, float)
+
+    def test_repr(self):
+        fkv = self._fkv(3, 4, 5)
+        r = repr(fkv)
+        assert "FourierKunzVector" in r
+        assert "m=3" in r

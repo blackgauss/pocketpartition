@@ -7,7 +7,10 @@ from .core.numerical_functions import (
     get_void_poset,
 )
 from .core.kunz import (
-    kunz_tuple
+    kunz_tuple,
+    KunzVector,
+    FourierKunzVector,
+    KunzPolyhedron,
 )
 from .core.partition import Partition
 from .core.random_numerical import RandomNumericalSemigroupWithGenus
@@ -26,6 +29,9 @@ __all__ = [
     'get_gap_poset',
     'get_void_poset',
     'kunz_tuple',
+    'KunzVector',
+    'FourierKunzVector',
+    'KunzPolyhedron',
     'WithGenus',
     'WithMaxGenus'
 ]
