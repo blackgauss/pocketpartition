@@ -5,41 +5,37 @@ from ..core.numerical_semigroup import NumericalSemigroup
 
 def bfs_to_depth(root, depth):
     if depth < 0:
-        return []
+        return
 
-    queue = deque([(root, 0)])  # (node, current_depth)
-    nodes_at_depth_g = []
+    queue = deque([(root, 0)])
 
     while queue:
         node, current_depth = queue.popleft()
 
         if current_depth == depth:
-            nodes_at_depth_g.append(node)
+            yield node
         elif current_depth < depth:
             for child in node.get_children():
                 queue.append((child, current_depth + 1))
 
-    return nodes_at_depth_g
-
 def bfs_up_to_depth(root, depth):
     if depth < 0:
-        return []
+        return
 
-    queue = deque([(root, 0)])  # (node, current_depth)
-    nodes = []
+    queue = deque([(root, 0)])
 
     while queue:
         node, current_depth = queue.popleft()
 
-        nodes.append(node)
+        yield node
         if current_depth < depth:
             for child in node.get_children():
                 queue.append((child, current_depth + 1))
 
-    return nodes
-
 def WithGenus(g):
-    return bfs_to_depth(NumericalSemigroup(generators={1}), g)
+    """Yield all numerical semigroups of genus exactly g."""
+    yield from bfs_to_depth(NumericalSemigroup(generators={1}), g)
 
 def WithMaxGenus(g):
-    return bfs_up_to_depth(NumericalSemigroup(generators={1}), g)
+    """Yield all numerical semigroups of genus at most g."""
+    yield from bfs_up_to_depth(NumericalSemigroup(generators={1}), g)
