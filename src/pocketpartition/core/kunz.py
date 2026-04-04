@@ -220,11 +220,22 @@ class FourierKunzVector:
         """
         Compute Fourier coefficients c_n for n = -n_max, ..., n_max.
 
+        Uses numpy's FFT when available (O(m log m)), otherwise falls back
+        to the per-coefficient DFT loop (O(m * n_max)).
+
         Returns
         -------
         dict mapping int -> complex
         """
-        return {n: self.fourier_coefficient(n) for n in range(-n_max, n_max + 1)}
+        try:
+            import numpy as np
+            m = self._m
+            # np.fft.fft gives F[k] = sum_{j} grid[j] * e^{-2pi i j k / m}
+            # our convention is c_n = (1/m) * F[n]
+            full = np.fft.fft(self._grid) / m
+            return {n: complex(full[n % m]) for n in range(-n_max, n_max + 1)}
+        except ImportError:
+            return {n: self.fourier_coefficient(n) for n in range(-n_max, n_max + 1)}
 
     def partial_sum(self, x: float, n_max: int) -> float:
         """
