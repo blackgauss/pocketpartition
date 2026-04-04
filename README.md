@@ -7,14 +7,19 @@ For more detailed information, refer to the full documentation available at [Rea
 
 ## Installation
 
-To install Pocket Partition, run the following command:
+**Using uv (recommended):**
 
+```sh
+uv add git+https://github.com/blackgauss/pocketpartition.git
+```
+
+**Using pip:**
 
 ```sh
 pip install git+https://github.com/blackgauss/pocketpartition.git
 ```
 
-To update Pocket Partition run the following command:
+To update with pip:
 
 ```sh
 pip install --upgrade git+https://github.com/blackgauss/pocketpartition.git
