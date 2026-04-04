@@ -11,16 +11,16 @@ license = { text = "MIT" }
 authors = [
     { name = "Erik Imathiu-Jones", email = "eimathiucaltech@gmail.com" }
 ]
-requires-python = ">=3.6"
+requires-python = ">=3.10"
 dependencies = []
-
-[project.optional-dependencies]
-numpy = ["numpy>=1.24"]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
+
+[project.optional-dependencies]
+numpy = ["numpy>=1.24"]
 
 [project.urls]
 Homepage = "https://github.com/blackgauss/pocketpartition"
