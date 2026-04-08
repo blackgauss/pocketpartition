@@ -82,6 +82,7 @@ class NumericalSemigroup(NumericalSet):
         return gaps
 
     @lru_cache(maxsize=None)
+    @lru_cache(maxsize=None)
     def apery_set(self, n):
         """
         Compute the Apéry set of the numerical set with respect to n.

@@ -15,8 +15,14 @@ def _compute_kunz_coords(S: NumericalSemigroup) -> tuple:
     Return the raw Kunz coordinate tuple for semigroup S.
 
     For each residue class ``r = 1, ..., m-1`` (where ``m`` is the
-    multiplicity of S) this finds the unique element of the Apéry set
-    ``Ap(S, m)`` that is congruent to ``r`` mod ``m``, then divides by ``m``.
+    multiplicity of S) this finds the smallest element of S in that
+    residue class, then divides by ``m``.
+
+    The implementation iterates forward from ``r`` in steps of ``m``,
+    using the O(1) ``frozenset`` membership test on ``S.gaps``,
+    and stops as soon as all ``m-1`` residue classes have been assigned.
+    This avoids building the full Apéry set when the multiplicity is
+    small relative to the Frobenius number.
 
     Parameters
     ----------
@@ -28,10 +34,19 @@ def _compute_kunz_coords(S: NumericalSemigroup) -> tuple:
         Length ``m - 1``, entries ``w_1, ..., w_{m-1}`` in residue order.
     """
     m = S.multiplicity()
-    A = S.apery_set(m)
-    # Build a residue->coord map in one pass over the Apéry set (|A| = m, so O(m)).
-    residue_to_coord = {n % m: n // m for n in A}
-    return tuple(residue_to_coord[res] for res in range(1, m))
+    gaps = S.gaps  # frozenset — O(1) membership tests
+    coords = [None] * m  # index 0 unused; coords[r] = w_r
+    remaining = m - 1    # how many residues still need filling
+
+    n = 1
+    while remaining:
+        r = n % m
+        if r != 0 and coords[r] is None and n not in gaps:
+            coords[r] = n // m
+            remaining -= 1
+        n += 1
+
+    return tuple(coords[1:])
 
 
 def kunz_tuple(S: NumericalSemigroup) -> tuple:
@@ -59,3 +74,4 @@ def kunz_tuple(S: NumericalSemigroup) -> tuple:
     (1, 1)
     """
     return _compute_kunz_coords(S)
+
