@@ -52,6 +52,39 @@ class NumericalSet:
         """
         return hash(self._gaps)
 
+    def __contains__(self, n: int) -> bool:
+        """
+        Return True if n is an element of this numerical set (i.e. not a gap).
+
+        O(1) frozenset lookup for n ≤ frobenius_number; all non-negative
+        integers beyond the Frobenius number are always elements.
+
+        Parameters:
+        n (int): The integer to test.
+
+        Returns:
+        bool: True if n belongs to the numerical set.
+        """
+        if n < 0:
+            return False
+        if n > self._frobenius_number:
+            return True
+        return n not in self._gaps
+
+    def __iter__(self):
+        """
+        Iterate over the elements of this numerical set in ascending order,
+        starting from 0 and stopping after the Frobenius number + 1
+        (i.e. yielding every non-gap up to and including frobenius_number + 1,
+        which is always an element).
+
+        Yields:
+        int: Elements of the numerical set in non-decreasing order.
+        """
+        for n in range(self._frobenius_number + 2):
+            if n not in self._gaps:
+                yield n
+
     def __str__(self):
         return f"NumericalSet(gaps={sorted(self.gaps)})"
 
