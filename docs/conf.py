@@ -26,7 +26,6 @@ extensions = [
     'sphinx_autodoc_typehints',  # render PEP 484 type hints as descriptions
 ]
 
-templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # autodoc settings
