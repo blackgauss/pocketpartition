@@ -303,19 +303,32 @@ class FourierKunzVector:
         """
         if not isinstance(other, FourierKunzVector):
             raise TypeError("other must be a FourierKunzVector.")
+        if not isinstance(norm, str):
+            raise TypeError(f"norm must be a string ('L1', 'L2', or 'Linf'), got {type(norm).__name__!r}.")
         norm = norm.upper()
         if norm not in ("L1", "L2", "LINF"):
             raise ValueError(f"norm must be 'L1', 'L2', or 'Linf', got {norm!r}.")
 
         N = math.lcm(self._m, other._m)
-        diffs = [abs(self(k / N) - other(k / N)) for k in range(N)]
 
         if norm == "L1":
-            return sum(diffs) / N
+            total = 0.0
+            for k in range(N):
+                total += abs(self(k / N) - other(k / N))
+            return total / N
         elif norm == "L2":
-            return math.sqrt(sum(d ** 2 for d in diffs) / N)
+            total_sq = 0.0
+            for k in range(N):
+                d = abs(self(k / N) - other(k / N))
+                total_sq += d * d
+            return math.sqrt(total_sq / N)
         else:  # LINF
-            return max(diffs)
+            max_diff = 0.0
+            for k in range(N):
+                d = abs(self(k / N) - other(k / N))
+                if d > max_diff:
+                    max_diff = d
+            return max_diff
 
     # --- display ---
 
@@ -335,8 +348,8 @@ def kunz_distance(
     norm: str = "L2",
 ) -> float:
     """
-    Compute the distance between two numerical semigroups using their
-    normalised Kunz step functions.
+    Compute the distance between two numerical semigroups (or already-built
+    Kunz / FourierKunz vectors) using their normalised Kunz step functions.
 
     Parameters
     ----------

@@ -482,6 +482,14 @@ class TestKunzDistance:
         with pytest.raises(ValueError):
             f1.distance(f2, norm="L3")
 
+    def test_distance_non_string_norm_raises(self):
+        f1 = self._fkv(3, 4, 5)
+        f2 = self._fkv(3, 5)
+        with pytest.raises(TypeError):
+            f1.distance(f2, norm=2)
+        with pytest.raises(TypeError):
+            f1.distance(f2, norm=None)
+
     def test_distance_all_norms_self_is_zero(self):
         fkv = self._fkv(3, 4, 5)
         for norm in ("L1", "L2", "Linf"):
