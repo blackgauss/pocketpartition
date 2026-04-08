@@ -34,7 +34,7 @@ class NumericalSemigroup(NumericalSet):
         ValueError: If the atom monoid of the numerical set is not equal to the set itself.
         """
         if generators is not None:
-            self._gaps = self._compute_gaps_from_generators(generators)
+            self._gaps = frozenset(self._compute_gaps_from_generators(generators))
         else:
             super().__init__(gaps)
             gaps = self._gaps
