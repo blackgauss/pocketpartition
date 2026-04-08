@@ -309,11 +309,11 @@ class NumericalSemigroup(NumericalSet):
         effective_gens = [egen for egen in mingens if egen > frob]
         return effective_gens
     
+    @lru_cache(maxsize=None)
     def get_children(self):
         gaps = self.gaps.copy()
         effective_gens = self.effective_generators()
-        children = [NumericalSemigroup(gaps=list(gaps) + [egen]) for egen in effective_gens]
-        return children
+        return tuple(NumericalSemigroup(gaps=list(gaps) + [egen]) for egen in effective_gens)
     
     def get_parent(self):
         gaps = self.gaps.copy()
