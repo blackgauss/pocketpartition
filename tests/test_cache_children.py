@@ -2,7 +2,6 @@
 Tests for cached get_children() on NumericalSemigroup.
 """
 
-import pytest
 from pocketpartition.core.numerical_semigroup import NumericalSemigroup
 from pocketpartition import WithGenus, WithMaxGenus
 
@@ -69,13 +68,21 @@ class TestGetChildrenCache:
         assert len(result) == 27
 
     def test_cache_across_bfs_calls(self):
-        # Run WithGenus twice; second call should hit the cache for every node
-        list(WithGenus(6))  # warm
-        import time
-        t0 = time.perf_counter()
-        list(WithGenus(6))
-        t1 = time.perf_counter()
-        t0_cold = time.perf_counter()
-        # Just assert it completes — timing is env-dependent, but at least
-        # verify the result is still correct
-        assert len(list(WithGenus(6))) == 23
+        # Clear cache so we get deterministic hit/miss counts
+        NumericalSemigroup.get_children.cache_clear()
+
+        before = NumericalSemigroup.get_children.cache_info()
+        warm_result = list(WithGenus(6))
+        after_warm = NumericalSemigroup.get_children.cache_info()
+
+        cached_result = list(WithGenus(6))
+        after_cached = NumericalSemigroup.get_children.cache_info()
+
+        assert len(warm_result) == 23
+        assert len(cached_result) == 23
+        # First traversal should have produced only misses
+        assert after_warm.misses > before.misses
+        assert after_warm.hits == before.hits
+        # Second traversal should reuse every cached result (all hits, no new misses)
+        assert after_cached.hits > after_warm.hits
+        assert after_cached.misses == after_warm.misses

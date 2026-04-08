@@ -311,6 +311,23 @@ class NumericalSemigroup(NumericalSet):
     
     @lru_cache(maxsize=None)
     def get_children(self):
+        """
+        Return the children of this semigroup in the semigroup tree.
+
+        A child is obtained by adding one effective generator (a minimal
+        generator strictly greater than the Frobenius number) to the gap set,
+        increasing the genus by 1.
+
+        Results are cached indefinitely via ``@lru_cache``.  For long-running
+        processes or very deep BFS traversals, callers can release memory with::
+
+            NumericalSemigroup.get_children.cache_clear()
+
+        Returns
+        -------
+        tuple of NumericalSemigroup
+            Immutable tuple; safe to share across BFS callers.
+        """
         gaps = self.gaps.copy()
         effective_gens = self.effective_generators()
         return tuple(NumericalSemigroup(gaps=list(gaps) + [egen]) for egen in effective_gens)
