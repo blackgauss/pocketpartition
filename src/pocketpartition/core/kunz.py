@@ -20,7 +20,29 @@ def _compute_kunz_coords(S: NumericalSemigroup) -> tuple:
 
 
 def kunz_tuple(S: NumericalSemigroup) -> tuple:
-    """Return the Kunz coordinate tuple of S as a plain tuple."""
+    """
+    Return the Kunz coordinate tuple of a numerical semigroup.
+
+    For a semigroup S with multiplicity m, the Kunz tuple is the vector
+    ``(w_1, ..., w_{m-1})`` where ``w_i = min{ n in S : n ≡ i (mod m) } / m``.
+
+    Parameters
+    ----------
+    S : NumericalSemigroup
+
+    Returns
+    -------
+    tuple of int
+        Length ``m - 1``, all entries positive.
+
+    Examples
+    --------
+    >>> from pocketpartition import NumericalSemigroup
+    >>> from pocketpartition.core.kunz import kunz_tuple
+    >>> S = NumericalSemigroup(generators=[3, 4, 5])
+    >>> kunz_tuple(S)
+    (1, 1)
+    """
     return _compute_kunz_coords(S)
 
 
@@ -59,14 +81,17 @@ class KunzVector(tuple):
 
     @property
     def multiplicity(self) -> int:
+        """The multiplicity of the underlying semigroup (equals ``m``, the vector length plus one)."""
         return self._semigroup.multiplicity()
 
     @property
     def genus(self) -> int:
+        """The genus (number of gaps) of the underlying semigroup."""
         return self._semigroup.genus
 
     @property
     def frobenius_number(self) -> int:
+        """The Frobenius number (largest gap) of the underlying semigroup."""
         return self._semigroup.frobenius_number
 
     # --- coordinate access (1-indexed, matching residue notation) ---
@@ -401,19 +426,96 @@ def kunz_distance(
 # ---------------------------------------------------------------------------
 
 class KunzPolyhedron:
+    """
+    The Kunz polyhedron for a given multiplicity m.
+
+    The Kunz polyhedron ``P(m)`` is the rational polyhedral cone in
+    ``R^{m-1}`` defined by the inequalities:
+
+    - ``c_i + c_j >= c_{i+j}``        for all ``1 <= i <= j <= m-1`` with ``i+j < m``
+    - ``c_i + c_j + 1 >= c_{i+j-m}``  for all ``1 <= i <= j <= m-1`` with ``i+j > m``
+
+    Every numerical semigroup of multiplicity m corresponds to an integer
+    lattice point inside ``P(m)``, and conversely every such lattice point
+    with all positive coordinates determines a numerical semigroup.
+
+    Parameters
+    ----------
+    m : int
+        The multiplicity.  Must be a positive integer.
+
+    Attributes
+    ----------
+    m : int
+        The multiplicity this polyhedron was built for.
+    corner : tuple of float
+        The ``m`` equally-spaced points ``(0, 1/m, 2/m, ..., (m-1)/m)``,
+        representing the origin corner of the polyhedron in the normalised
+        coordinate chart.
+
+    Examples
+    --------
+    >>> from pocketpartition.core.kunz import KunzPolyhedron, kunz_tuple
+    >>> from pocketpartition import NumericalSemigroup
+    >>> kp = KunzPolyhedron(3)
+    >>> S = NumericalSemigroup(generators=[3, 4, 5])
+    >>> kp.is_point(kunz_tuple(S))
+    True
+    """
+
     def __init__(self, m: int):
+        """
+        Initialise the Kunz polyhedron for multiplicity m.
+
+        Parameters
+        ----------
+        m : int
+            Must be a positive integer.
+
+        Raises
+        ------
+        ValueError
+            If ``m`` is not a positive integer.
+        """
         if m <= 0:
             raise ValueError("m must be a positive integer.")
         self.m = m
         self.corner = tuple([i/m for i in range(m)])
 
-    def is_point(self, p: tuple[int]) -> bool:
+    def is_point(self, p: tuple) -> bool:
+        """
+        Check whether a coordinate vector lies inside the Kunz polyhedron.
+
+        Parameters
+        ----------
+        p : tuple of int or float
+            A vector of length ``m - 1``.  Entry ``p[k]`` represents the
+            coordinate ``c_{k+1}`` (1-indexed residue ``k+1`` mod ``m``).
+
+        Returns
+        -------
+        bool
+            ``True`` if ``p`` satisfies all Kunz polyhedron inequalities,
+            ``False`` otherwise.
+
+        Notes
+        -----
+        The inequalities checked are, for all ``1 <= i <= j <= m-1``:
+
+        - ``i + j < m``  →  ``c_i + c_j >= c_{i+j}``
+        - ``i + j > m``  →  ``c_i + c_j + 1 >= c_{i+j-m}``
+        - ``i + j == m`` →  always satisfied for non-negative coordinates
+
+        Examples
+        --------
+        >>> kp = KunzPolyhedron(3)
+        >>> kp.is_point((1, 1))   # Kunz tuple of <3, 4, 5>
+        True
+        >>> kp.is_point((-1, 1))  # negative coordinate
+        False
+        """
         # p has length m-1, representing c_1 ... c_{m-1} (1-indexed residues).
         # p[k] corresponds to c_{k+1}.
-        # Kunz polyhedron inequalities for all 1 <= i <= j <= m-1:
-        #   i+j < m  =>  c_i + c_j >= c_{i+j}
-        #   i+j > m  =>  c_i + c_j + 1 >= c_{i+j-m}
-        #   i+j == m =>  c_i + c_j + 1 >= 1  (always true for non-negative coords)
         if any(x < 0 for x in p):
             return False
         m = self.m
