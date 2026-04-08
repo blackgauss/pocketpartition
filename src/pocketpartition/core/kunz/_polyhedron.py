@@ -54,9 +54,13 @@ class KunzPolyhedron:
 
         Raises
         ------
+        TypeError
+            If ``m`` is not an integer.
         ValueError
             If ``m`` is not a positive integer.
         """
+        if not isinstance(m, int):
+            raise TypeError(f"m must be an integer, got {type(m).__name__}.")
         if m <= 0:
             raise ValueError("m must be a positive integer.")
         self.m = m
@@ -86,6 +90,11 @@ class KunzPolyhedron:
         - ``i + j > m``  →  ``c_i + c_j + 1 >= c_{i+j-m}``
         - ``i + j == m`` →  always satisfied for non-negative coordinates
 
+        Raises
+        ------
+        ValueError
+            If ``p`` does not have length ``m - 1``.
+
         Examples
         --------
         >>> kp = KunzPolyhedron(3)
@@ -96,9 +105,13 @@ class KunzPolyhedron:
         """
         # p has length m-1, representing c_1 ... c_{m-1} (1-indexed residues).
         # p[k] corresponds to c_{k+1}.
+        m = self.m
+        if len(p) != m - 1:
+            raise ValueError(
+                f"p must have length m-1 = {m - 1}, got {len(p)}."
+            )
         if any(x < 0 for x in p):
             return False
-        m = self.m
         # residues are 1-indexed; i and j run from 1 to m-1
         for i in range(1, m):
             for j in range(i, m):

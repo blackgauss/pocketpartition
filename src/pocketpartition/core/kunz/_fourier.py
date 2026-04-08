@@ -109,18 +109,24 @@ class FourierKunzVector:
 
     def fourier_coefficient(self, n: int) -> complex:
         """
-        Compute the n-th Fourier coefficient of f:
+        Compute the n-th Fourier coefficient of f.
 
-            c_n = ∫_0^1 f(x) e^{-2πi n x} dx
+        Because f is piecewise-constant on each half-open interval
+        ``[i/m, (i+1)/m)``, the integral
 
-        Because f is a step function constant on each [i/m, (i+1)/m),
-        the integral reduces to a finite sum:
+        .. math::
 
-            c_n = (1/m) Σ_{i=0}^{m-1}  f(i/m) · e^{-2πi n (i/m)}
-                = (1/m) Σ_{i=0}^{m-1}  v_i · ω^{-ni}
+            c_n = \\int_0^1 f(x)\\, e^{-2\\pi i n x}\\, dx
 
-        where  ω = e^{2πi/m}  is the primitive m-th root of unity and
-        v_i = self._grid[i].
+        reduces **exactly** to a finite sum.  Integrating ``f(i/m) * e^{-2πinx}``
+        over ``[i/m, (i+1)/m)`` gives ``(1/m) * f(i/m) * e^{-2πi n (i/m)}``, so:
+
+        .. math::
+
+            c_n = \\frac{1}{m} \\sum_{i=0}^{m-1} f\\!\\left(\\frac{i}{m}\\right)
+                  e^{-2\\pi i n i/m}
+
+        This is the standard DFT of the grid values, scaled by ``1/m``.
 
         Parameters
         ----------

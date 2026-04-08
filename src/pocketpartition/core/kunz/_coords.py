@@ -29,12 +29,9 @@ def _compute_kunz_coords(S: NumericalSemigroup) -> tuple:
     """
     m = S.multiplicity()
     A = S.apery_set(m)
-    kunz_tup = []
-    for res in range(1, m):
-        for n in A:
-            if n % m == res:
-                kunz_tup.append(n // m)
-    return tuple(kunz_tup)
+    # Build a residue->coord map in one pass over the Apéry set (|A| = m, so O(m)).
+    residue_to_coord = {n % m: n // m for n in A}
+    return tuple(residue_to_coord[res] for res in range(1, m))
 
 
 def kunz_tuple(S: NumericalSemigroup) -> tuple:
