@@ -33,9 +33,8 @@ class TestGetChildrenCache:
             assert child.genus == s.genus + 1
 
     def test_root_children_count(self):
-        # NumericalSemigroup({1}) has genus 0; its only child is {2,3,...} which
-        # has one effective generator: 2.  Actually root = N itself (gaps={})
-        # Its child is the semigroup with gaps={1}: NumericalSemigroup({2,3})
+        # The root is N itself (represented by NumericalSemigroup({1}), with gaps={}).
+        # Its only child is the semigroup with gaps={1}: NumericalSemigroup({2,3}).
         root = NumericalSemigroup(generators={1})
         assert len(root.get_children()) == 1
 
