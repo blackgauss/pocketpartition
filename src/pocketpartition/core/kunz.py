@@ -269,41 +269,66 @@ class FourierKunzVector:
         )
         return total.real
 
-    # --- L2 distance ---
+    # --- L^p distance ---
 
-    def distance(self, other: "FourierKunzVector") -> float:
+    def distance(self, other: "FourierKunzVector", norm: str = "L2") -> float:
         """
-        Compute the L² distance between this FourierKunzVector and another.
+        Compute the distance between this FourierKunzVector and another.
 
-        Both functions are step functions on [0, 1).  The L² norm is computed
-        on a common evaluation grid of size lcm(m_self, m_other), which is
-        the finest grid on which both functions are simultaneously constant.
-
-        .. math::
-
-            d(f, g) = \\left( \\int_0^1 |f(x) - g(x)|^2 \\, dx \\right)^{1/2}
-                    = \\left( \\frac{1}{N} \\sum_{k=0}^{N-1}
-                      \\bigl(f(k/N) - g(k/N)\\bigr)^2 \\right)^{1/2}
-
-        where  N = lcm(m_self, m_other).
+        Both functions are evaluated on a common grid of size lcm(m_self, m_other),
+        which is the finest grid on which both step functions are simultaneously
+        constant.
 
         Parameters
         ----------
         other : FourierKunzVector
+        norm : {"L1", "L2", "Linf"}
+            Which norm to use:
+
+            - ``"L1"``   — :math:`\\int_0^1 |f(x) - g(x)| \\, dx`
+            - ``"L2"``   — :math:`\\left(\\int_0^1 |f(x) - g(x)|^2 \\, dx\\right)^{1/2}`  *(default)*
+            - ``"Linf"`` — :math:`\\sup_{x \\in [0,1)} |f(x) - g(x)|`
 
         Returns
         -------
         float
-            The L² distance ≥ 0.
+            The distance ≥ 0.
+
+        Raises
+        ------
+        ValueError
+            If ``norm`` is not one of the supported values.
+        TypeError
+            If ``other`` is not a FourierKunzVector, or if ``norm`` is not a string.
         """
         if not isinstance(other, FourierKunzVector):
             raise TypeError("other must be a FourierKunzVector.")
+        if not isinstance(norm, str):
+            raise TypeError(f"norm must be a string ('L1', 'L2', or 'Linf'), got {type(norm).__name__}.")
+        norm = norm.upper()
+        if norm not in ("L1", "L2", "LINF"):
+            raise ValueError(f"norm must be 'L1', 'L2', or 'Linf', got {norm!r}.")
+
         N = math.lcm(self._m, other._m)
-        total = sum(
-            (self(k / N) - other(k / N)) ** 2
-            for k in range(N)
-        )
-        return math.sqrt(total / N)
+
+        if norm == "L1":
+            total = 0.0
+            for k in range(N):
+                total += abs(self(k / N) - other(k / N))
+            return total / N
+        elif norm == "L2":
+            total_sq = 0.0
+            for k in range(N):
+                d = abs(self(k / N) - other(k / N))
+                total_sq += d * d
+            return math.sqrt(total_sq / N)
+        else:  # LINF
+            max_diff = 0.0
+            for k in range(N):
+                d = abs(self(k / N) - other(k / N))
+                if d > max_diff:
+                    max_diff = d
+            return max_diff
 
     # --- display ---
 
@@ -320,9 +345,10 @@ class FourierKunzVector:
 def kunz_distance(
     S: "NumericalSemigroup | KunzVector | FourierKunzVector",
     T: "NumericalSemigroup | KunzVector | FourierKunzVector",
+    norm: str = "L2",
 ) -> float:
     """
-    Compute the L² distance between two numerical semigroups (or already-built
+    Compute the distance between two numerical semigroups (or already-built
     Kunz / FourierKunz vectors) using their normalised Kunz step functions.
 
     Parameters
@@ -330,6 +356,12 @@ def kunz_distance(
     S, T : NumericalSemigroup | KunzVector | FourierKunzVector
         The two objects to compare.  NumericalSemigroup and KunzVector inputs
         are automatically converted to FourierKunzVector.
+    norm : {"L1", "L2", "Linf"}
+        Which norm to use (default ``"L2"``):
+
+        - ``"L1"``   — sum of absolute differences (normalised by grid size)
+        - ``"L2"``   — root-mean-square differences  *(default)*
+        - ``"Linf"`` — maximum absolute difference
 
     Returns
     -------
@@ -339,12 +371,15 @@ def kunz_distance(
 
     Examples
     --------
-    >>> from pocketpartition import NumericalSemigroup
-    >>> from pocketpartition.core.kunz import kunz_distance
+    >>> from pocketpartition import NumericalSemigroup, kunz_distance
     >>> S = NumericalSemigroup(generators=[3, 4, 5])
     >>> T = NumericalSemigroup(generators=[3, 5])
-    >>> kunz_distance(S, T)       # doctest: +ELLIPSIS
+    >>> kunz_distance(S, T)                  # L2 (default)  # doctest: +ELLIPSIS
     0.816...
+    >>> kunz_distance(S, T, norm="L1")       # doctest: +ELLIPSIS
+    0.666...
+    >>> kunz_distance(S, T, norm="Linf")     # doctest: +ELLIPSIS
+    1.0...
     """
     def _to_fkv(obj):
         if isinstance(obj, FourierKunzVector):
@@ -358,7 +393,7 @@ def kunz_distance(
             f"got {type(obj).__name__}."
         )
 
-    return _to_fkv(S).distance(_to_fkv(T))
+    return _to_fkv(S).distance(_to_fkv(T), norm=norm)
 
 
 # ---------------------------------------------------------------------------

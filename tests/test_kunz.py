@@ -473,3 +473,85 @@ class TestKunzDistance:
     def test_kunz_distance_rejects_bad_type(self):
         with pytest.raises(TypeError):
             kunz_distance(S(3, 4, 5), [1, 2, 3])
+
+    # --- norm parameter ---
+
+    def test_distance_invalid_norm_raises(self):
+        f1 = self._fkv(3, 4, 5)
+        f2 = self._fkv(3, 5)
+        with pytest.raises(ValueError):
+            f1.distance(f2, norm="L3")
+
+    def test_distance_non_string_norm_raises(self):
+        f1 = self._fkv(3, 4, 5)
+        f2 = self._fkv(3, 5)
+        with pytest.raises(TypeError):
+            f1.distance(f2, norm=2)
+        with pytest.raises(TypeError):
+            f1.distance(f2, norm=None)
+
+    def test_distance_all_norms_self_is_zero(self):
+        fkv = self._fkv(3, 4, 5)
+        for norm in ("L1", "L2", "Linf"):
+            assert math.isclose(fkv.distance(fkv, norm=norm), 0.0, abs_tol=1e-12), \
+                f"{norm} self-distance != 0"
+
+    def test_distance_all_norms_symmetric(self):
+        f1 = self._fkv(3, 4, 5)
+        f2 = self._fkv(3, 5)
+        for norm in ("L1", "L2", "Linf"):
+            assert math.isclose(
+                f1.distance(f2, norm=norm), f2.distance(f1, norm=norm), rel_tol=1e-9
+            ), f"{norm} distance not symmetric"
+
+    def test_distance_all_norms_nonnegative(self):
+        f1 = self._fkv(4, 5, 6, 7)
+        f2 = self._fkv(4, 6, 7)
+        for norm in ("L1", "L2", "Linf"):
+            assert f1.distance(f2, norm=norm) >= 0.0
+
+    def test_distance_norm_ordering(self):
+        # For these normalized distances on a finite set of N points:
+        #   Linf >= L2 >= L1.
+        # Both L1 and L2 are averaged over the same N points, so no sqrt(N) factor is needed.
+        f1 = self._fkv(3, 5)
+        f2 = self._fkv(3, 4, 5)
+        d_l1   = f1.distance(f2, norm="L1")
+        d_l2   = f1.distance(f2, norm="L2")
+        d_linf = f1.distance(f2, norm="Linf")
+        assert d_linf >= d_l2 - 1e-12,  f"Linf={d_linf} < L2={d_l2}"
+        assert d_l2   >= d_l1 - 1e-12,  f"L2={d_l2} < L1={d_l1}"
+
+    def test_kunz_distance_l1_norm(self):
+        s1 = S(3, 4, 5)
+        s2 = S(3, 5)
+        d = kunz_distance(s1, s2, norm="L1")
+        assert d >= 0.0
+        # should differ from L2
+        d_l2 = kunz_distance(s1, s2, norm="L2")
+        assert not math.isclose(d, d_l2, rel_tol=1e-6)
+
+    def test_kunz_distance_linf_norm(self):
+        s1 = S(3, 4, 5)
+        s2 = S(3, 5)
+        d = kunz_distance(s1, s2, norm="Linf")
+        assert d >= 0.0
+
+    def test_kunz_distance_norm_case_insensitive(self):
+        # norm strings should be case-insensitive
+        s1 = S(3, 4, 5)
+        s2 = S(3, 5)
+        assert math.isclose(
+            kunz_distance(s1, s2, norm="l1"),
+            kunz_distance(s1, s2, norm="L1"),
+            rel_tol=1e-12,
+        )
+        assert math.isclose(
+            kunz_distance(s1, s2, norm="linf"),
+            kunz_distance(s1, s2, norm="Linf"),
+            rel_tol=1e-12,
+        )
+
+    def test_kunz_distance_invalid_norm_raises(self):
+        with pytest.raises(ValueError):
+            kunz_distance(S(3, 4, 5), S(3, 5), norm="L3")
