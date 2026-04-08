@@ -31,6 +31,27 @@ class NumericalSet:
     def frobenius_number(self):
         return self._frobenius_number
     
+    def __eq__(self, other: object) -> bool:
+        """
+        Two numerical sets are equal iff they have the same gaps.
+
+        Because instances are singletons, this is equivalent to identity
+        comparison, but defining ``__eq__`` explicitly allows ``__hash__``
+        to be defined without triggering Python's implicit hash removal.
+        """
+        if not isinstance(other, NumericalSet):
+            return NotImplemented
+        return self._gaps == other._gaps
+
+    def __hash__(self) -> int:
+        """
+        Hash based on the frozen gap set.
+
+        Enables ``NumericalSet`` (and its subclasses) to be used as dict keys,
+        in sets, and as arguments to ``@lru_cache``-decorated functions.
+        """
+        return hash(self._gaps)
+
     def __str__(self):
         return f"NumericalSet(gaps={sorted(self.gaps)})"
 
