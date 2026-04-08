@@ -154,6 +154,24 @@ class TestKunzPolyhedron:
         kp = KunzPolyhedron(4)
         assert kp.is_point((1, 1, 5)) is False
 
+    def test_init_rejects_float(self):
+        with pytest.raises(TypeError):
+            KunzPolyhedron(3.5)
+
+    def test_init_rejects_string(self):
+        with pytest.raises(TypeError):
+            KunzPolyhedron("3")
+
+    def test_is_point_rejects_wrong_length_short(self):
+        kp = KunzPolyhedron(4)   # expects length 3
+        with pytest.raises(ValueError):
+            kp.is_point((1, 1))  # length 2
+
+    def test_is_point_rejects_wrong_length_long(self):
+        kp = KunzPolyhedron(3)   # expects length 2
+        with pytest.raises(ValueError):
+            kp.is_point((1, 1, 1))  # length 3
+
     # --- round-trip: every semigroup's kunz tuple is a valid polyhedron point ---
 
     def test_round_trip_multiple_semigroups(self):
