@@ -256,21 +256,24 @@ class NumericalSemigroup(NumericalSet):
             return awt
     
     def pseudofrobenius_numbers(self):
-            """
-            Calculates the pseudofrobenius numbers
-            Returns:
-                A list of unique pseudofrobenius numbers.
-            """
-            hookset = []
-            small_elements = self.small_elements()
-            gaps = self.gaps.copy()
-            for s in small_elements:
-                for gap in gaps:
-                    if gap > s:
-                        hookset.append(gap - s)
-            element_counts = Counter(hookset)
-            unique_elements = [element for element, count in element_counts.items() if count == 1]
-            return unique_elements
+        """
+        Calculate the pseudo-Frobenius numbers of the semigroup.
+
+        Returns
+        -------
+        list of int
+            The unique pseudo-Frobenius numbers.
+        """
+        hookset = []
+        small_elements = self.small_elements()
+        gaps = self.gaps.copy()
+        for s in small_elements:
+            for gap in gaps:
+                if gap > s:
+                    hookset.append(gap - s)
+        element_counts = Counter(hookset)
+        unique_elements = [element for element, count in element_counts.items() if count == 1]
+        return unique_elements
     
     def type(self):
         return len(self.pseudofrobenius_numbers())
@@ -320,9 +323,12 @@ class NumericalSemigroup(NumericalSet):
 
     def special_gaps(self):
         """
-        compute the gaps that can be added to S and still have a numerical semigroup.
-        Returns:
-            A list of special gaps.
+        Compute the gaps that can be added to S and still yield a numerical semigroup.
+
+        Returns
+        -------
+        list of int
+            The special gaps of S.
         """
         gaps = self.gaps.copy()
         f = self.frobenius_number

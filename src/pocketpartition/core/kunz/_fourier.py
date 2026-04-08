@@ -170,7 +170,8 @@ class FourierKunzVector:
 
     def partial_sum(self, x: float, n_max: int) -> float:
         """
-        Evaluate the Fourier partial sum  S_{n_max}(x) = Σ_{|n|<=n_max} c_n e^{2πinx}.
+        Evaluate the Fourier partial sum
+        :math:`S_{n_{\\max}}(x) = \\sum_{|n| \\le n_{\\max}} c_n e^{2\\pi i n x}`.
 
         Useful for visualising how well the Fourier series reconstructs f.
 
