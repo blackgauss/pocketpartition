@@ -6,8 +6,9 @@
 import os
 import sys
 
-# Make the src layout visible to autodoc without installing the package
-sys.path.insert(0, os.path.abspath('../src'))
+# Make the src layout visible to autodoc regardless of the CWD when Sphinx runs.
+# Resolving relative to __file__ keeps this correct in CI and from the repo root.
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 
 # -- Project information -----------------------------------------------------
 
@@ -47,5 +48,5 @@ intersphinx_mapping = {
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = 'furo'
-html_static_path = ['_static']
+html_static_path = []   # no custom static assets yet
 html_title = 'pocketpartition'
