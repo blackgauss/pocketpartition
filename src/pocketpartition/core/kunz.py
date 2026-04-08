@@ -299,12 +299,12 @@ class FourierKunzVector:
         ValueError
             If ``norm`` is not one of the supported values.
         TypeError
-            If ``other`` is not a FourierKunzVector.
+            If ``other`` is not a FourierKunzVector, or if ``norm`` is not a string.
         """
         if not isinstance(other, FourierKunzVector):
             raise TypeError("other must be a FourierKunzVector.")
         if not isinstance(norm, str):
-            raise TypeError(f"norm must be a string ('L1', 'L2', or 'Linf'), got {type(norm).__name__!r}.")
+            raise TypeError(f"norm must be a string ('L1', 'L2', or 'Linf'), got {type(norm).__name__}.")
         norm = norm.upper()
         if norm not in ("L1", "L2", "LINF"):
             raise ValueError(f"norm must be 'L1', 'L2', or 'Linf', got {norm!r}.")

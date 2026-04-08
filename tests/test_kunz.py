@@ -511,9 +511,9 @@ class TestKunzDistance:
             assert f1.distance(f2, norm=norm) >= 0.0
 
     def test_distance_norm_ordering(self):
-        # For any two functions on a finite set of N points:
-        #   Linf >= L2 >= L1  (after accounting for normalisation)
-        # Concretely: Linf >= L2 always; L1 <= L2 * sqrt(N) but we just check Linf >= L2
+        # For these normalized distances on a finite set of N points:
+        #   Linf >= L2 >= L1.
+        # Both L1 and L2 are averaged over the same N points, so no sqrt(N) factor is needed.
         f1 = self._fkv(3, 5)
         f2 = self._fkv(3, 4, 5)
         d_l1   = f1.distance(f2, norm="L1")
