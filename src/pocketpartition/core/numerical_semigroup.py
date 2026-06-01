@@ -82,6 +82,7 @@ class NumericalSemigroup(NumericalSet):
         return gaps
 
     @lru_cache(maxsize=None)
+    @lru_cache(maxsize=None)
     def apery_set(self, n):
         """
         Compute the Apéry set of the numerical set with respect to n.
@@ -309,11 +310,11 @@ class NumericalSemigroup(NumericalSet):
         effective_gens = [egen for egen in mingens if egen > frob]
         return effective_gens
     
+    @lru_cache(maxsize=None)
     def get_children(self):
         gaps = self.gaps.copy()
         effective_gens = self.effective_generators()
-        children = [NumericalSemigroup(gaps=list(gaps) + [egen]) for egen in effective_gens]
-        return children
+        return tuple(NumericalSemigroup(gaps=list(gaps) + [egen]) for egen in effective_gens)
     
     def get_parent(self):
         gaps = self.gaps.copy()
